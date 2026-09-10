@@ -64,10 +64,10 @@ export default function GallerySection() {
                     </div>
                   </>
                 ) : (
-                  <img 
-                    src={item.src} 
-                    alt={item.title} 
-                    loading="lazy" 
+                  <img
+                    src={item.src}
+                    alt={item.title}
+                    loading="lazy"
                     style={item.category === "Our Business Card" ? { objectFit: "contain", background: "#092015", padding: "6px" } : {}}
                   />
                 )}

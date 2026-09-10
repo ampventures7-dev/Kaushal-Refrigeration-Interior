@@ -95,7 +95,7 @@ export default function Footer({ onSearchClick, onRequestQuoteClick }) {
           <ul className="footerContactList">
             <li>
               <MapPin size={17} className="footerContactIcon" />
-              <span>20A, Shivpuri Colony, Jhotwara, Jaipur, Rajasthan 302012</span>
+              <span>20A, Jeen Mata Marg, Satya Nagar, D.K. Nagar, Jhotwara, Jaipur, Rajasthan 302012</span>
             </li>
             <li>
               <Phone size={17} className="footerContactIcon" />

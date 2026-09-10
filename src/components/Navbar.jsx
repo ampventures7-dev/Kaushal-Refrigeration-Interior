@@ -31,7 +31,7 @@ export default function Navbar() {
           rel="noopener noreferrer"
           title="Instagram: @kaushal_refrigeration"
         >
-          <Instagram size={16} /> <span>Instagram</span>
+          <Instagram size={18} /> <span>Instagram</span>
         </a>
         <a
           className="navWa"
@@ -39,10 +39,10 @@ export default function Navbar() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <WhatsAppIcon size={16} /> <span>9829196508</span>
+          <WhatsAppIcon size={18} /> <span>9829196508</span>
         </a>
         <a className="navCta" href="#contact">
-          Get a Quote ↗
+          Follow Up ↗
         </a>
       </div>
     </header>

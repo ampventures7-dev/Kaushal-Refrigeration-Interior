@@ -60,16 +60,6 @@ export const galleryItems = [
     specs: ["Gold Mirror Trim Accents", "Textured Ventilation Base", "Uniform Airflow Cooling", "Heavy Duty Rear Sliding Doors"]
   },
   {
-    id: 7,
-    type: "image",
-    title: "Golden Mirror Finish Bakery Chiller Counter",
-    category: "Bakery",
-    location: "Showroom Display, Jaipur",
-    src: "/gallery/1000201983.jpg",
-    desc: "Front view of a luxury bakery display showcase with golden mirror stainless steel casing and perforated lower air ducts.",
-    specs: ["Full Golden Mirror Stainless Steel", "Perforated Air Exhaust Duct", "Digital Thermostat (+2°C to +8°C)", "Energy Saving Overhead LEDs"]
-  },
-  {
     id: 8,
     type: "image",
     title: "Warm LED Gold Edition Cake Showcase",

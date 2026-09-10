@@ -27,7 +27,7 @@ export default function ExperienceCenter() {
           </div>
           <div className="expCenterContent">
             <small>FACTORY & SHOWROOM ADDRESS</small>
-            <b>20A, Shivpuri Colony, Jhotwara, Jaipur, Rajasthan 302012</b>
+            <b>20A, Jeen Mata Marg, Satya Nagar, D.K. Nagar, Jhotwara, Jaipur, Rajasthan 302012</b>
           </div>
         </div>
 
@@ -85,7 +85,7 @@ export default function ExperienceCenter() {
       <div className="expCenterMapWrapper">
         <iframe
           title="Kaushal Refrigeration & Interrior Manufacturing Unit Map"
-          src="https://maps.google.com/maps?q=20A,+Shivpuri+colony,+Jhotwara,+Jaipur,+Rajasthan+302012&t=&z=15&ie=UTF8&iwloc=&output=embed"
+          src="https://maps.google.com/maps?q=20A,+Jeen+Mata+Marg,+Satya+Nagar,+D.K.+Nagar,+Jhotwara,+Jaipur,+Rajasthan+302012&t=&z=15&ie=UTF8&iwloc=&output=embed"
           width="100%"
           height="420"
           style={{ border: 0 }}
@@ -95,7 +95,7 @@ export default function ExperienceCenter() {
         />
         <div className="mapFloatingBadge">
           <MapPin size={16} />
-          <span>Kaushal Refrigeration & Interrior • 20A, Shivpuri Colony, Jhotwara, Jaipur</span>
+          <span>Kaushal Refrigeration & Interrior • 20A, Jeen Mata Marg, Satya Nagar, D.K. Nagar, Jhotwara, Jaipur</span>
         </div>
       </div>
     </section>

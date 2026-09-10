@@ -70,8 +70,8 @@ button, input, select, textarea {
 
 /* NAVBAR - LUXURY DARK GREEN */
 .nav {
-  height: 78px;
-  padding: 0 5vw;
+  height: 94px;
+  padding: 0 4vw;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -81,50 +81,55 @@ button, input, select, textarea {
   top: 0;
   z-index: 20;
   color: var(--nav-text);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   color: var(--nav-text);
 }
 
 .mark {
   display: grid;
   place-items: center;
-  width: 42px;
-  height: 42px;
-  min-width: 42px;
+  width: 50px;
+  height: 50px;
+  min-width: 50px;
   background: var(--mark-bg);
   color: #fff;
   font-weight: 800;
   border-radius: 50%;
-  font-size: 13px;
+  font-size: 15px;
   letter-spacing: 0.5px;
-  border: 1.5px solid var(--mark-border);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  border: 2px solid var(--mark-border);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.35);
 }
 
 .brand b {
   display: block;
-  font-size: 13px;
-  letter-spacing: 1.2px;
+  font-size: 16px;
+  letter-spacing: 1.3px;
   color: #ffffff;
   font-weight: 700;
+  line-height: 1.25;
 }
 
 .brand small {
-  font-size: 8px;
-  letter-spacing: 1.6px;
+  display: block;
+  font-size: 10px;
+  letter-spacing: 1.8px;
   color: var(--nav-link);
+  margin-top: 3px;
+  font-weight: 600;
 }
 
 .nav nav {
   display: flex;
-  gap: 30px;
-  font-size: 13px;
+  gap: 32px;
+  font-size: 15.5px;
+  font-weight: 500;
   color: var(--nav-link);
 }
 
@@ -139,19 +144,19 @@ button, input, select, textarea {
 .navActions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
 
 .navInsta {
   background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
   color: #ffffff;
-  padding: 10px 14px;
-  border-radius: 4px;
-  font-size: 12px;
+  padding: 11px 18px;
+  border-radius: 6px;
+  font-size: 13.5px;
   font-weight: 700;
   display: inline-flex;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
   transition: all .2s ease;
   box-shadow: 0 2px 10px rgba(220, 39, 67, 0.25);
 }
@@ -165,9 +170,9 @@ button, input, select, textarea {
 .navWa {
   background: #25d366;
   color: #ffffff;
-  padding: 10px 16px;
-  border-radius: 4px;
-  font-size: 12px;
+  padding: 11px 18px;
+  border-radius: 6px;
+  font-size: 13.5px;
   font-weight: 700;
   display: inline-flex;
   align-items: center;
@@ -185,9 +190,9 @@ button, input, select, textarea {
 .navCta {
   background: var(--nav-cta-bg);
   color: #ffffff;
-  padding: 12px 20px;
-  border-radius: 4px;
-  font-size: 12px;
+  padding: 12px 22px;
+  border-radius: 6px;
+  font-size: 13.5px;
   font-weight: 700;
   display: inline-flex;
   align-items: center;
@@ -1726,12 +1731,15 @@ h2 em {
   line-height: 1.35;
 }
 
-/* EXPERIENCE CENTER SECTION */
+/* EXPERIENCE CENTER SECTION - LIGHT PINK THEME */
 .experienceCenterSection {
   margin-top: 55px;
-  padding-top: 55px;
-  border-top: 1px solid var(--border-light);
+  padding: 50px 40px;
+  background: linear-gradient(135deg, #fff0f3 0%, #fff7f9 100%);
+  border-radius: 20px;
+  border: 1.5px solid #fecdd3;
   text-align: left;
+  box-shadow: 0 10px 30px rgba(225, 29, 72, 0.05);
 }
 
 .expCenterEyebrow {
@@ -1741,7 +1749,7 @@ h2 em {
   font-size: 11px;
   letter-spacing: 2px;
   font-weight: 700;
-  color: var(--primary-accent);
+  color: #db2777;
   text-transform: uppercase;
   margin: 0 0 10px 0;
 }
@@ -1750,21 +1758,21 @@ h2 em {
   display: inline-block;
   width: 24px;
   height: 2px;
-  background: var(--primary-accent);
+  background: #db2777;
 }
 
 .expCenterHeading {
   font-size: clamp(26px, 3.2vw, 36px);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.15;
   letter-spacing: -1.2px;
-  color: var(--text-main);
+  color: #881337;
   margin: 0 0 12px 0;
 }
 
 .expCenterDescription {
   font-size: 15px;
-  color: var(--text-muted);
+  color: #9f1239;
   line-height: 1.7;
   max-width: 740px;
   margin: 0 0 35px 0;
@@ -1779,29 +1787,29 @@ h2 em {
 
 .expCenterInfoCard {
   background: #ffffff;
-  border: 1.5px solid var(--border-light);
-  border-radius: 10px;
+  border: 1.5px solid #fecdd3;
+  border-radius: 12px;
   padding: 22px 18px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  box-shadow: 0 2px 8px rgba(13, 47, 32, 0.04);
-  transition: all .2s ease;
+  box-shadow: 0 4px 15px rgba(225, 29, 72, 0.05);
+  transition: all .25s ease;
   box-sizing: border-box;
 }
 
 .expCenterInfoCard:hover {
-  border-color: var(--primary-accent);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(13, 47, 32, 0.08);
+  border-color: #f43f5e;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(225, 29, 72, 0.14);
 }
 
 .expCenterIconWrap {
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  background: rgba(39, 114, 79, 0.1);
-  color: var(--primary-dark);
+  background: #ffe4e6;
+  color: #e11d48;
   display: grid;
   place-items: center;
 }
@@ -1817,28 +1825,29 @@ h2 em {
   font-weight: 800;
   letter-spacing: 1.2px;
   text-transform: uppercase;
-  color: var(--primary-accent);
+  color: #be185d;
   margin-bottom: 4px;
 }
 
 .expCenterContent b {
   font-size: 13px;
   font-weight: 700;
-  color: var(--text-main);
+  color: #4c0519;
   line-height: 1.45;
 }
 
 .expCenterLink {
   font-size: 13px;
   font-weight: 700;
-  color: var(--primary-dark);
+  color: #be185d;
   text-decoration: underline;
+  text-decoration-color: #f472b6;
   word-break: break-word;
   transition: color .2s ease;
 }
 
 .expCenterLink:hover {
-  color: var(--primary-accent);
+  color: #9f1239;
 }
 
 .expCenterActions {
@@ -1850,7 +1859,7 @@ h2 em {
 }
 
 .expCallBtn {
-  background: var(--primary-dark);
+  background: linear-gradient(135deg, #e11d48, #be123c);
   color: #ffffff;
   padding: 13px 24px;
   border-radius: 6px;
@@ -1861,12 +1870,13 @@ h2 em {
   gap: 8px;
   transition: all .2s ease;
   text-decoration: none;
+  box-shadow: 0 4px 14px rgba(225, 29, 72, 0.3);
 }
 
 .expCallBtn:hover {
-  background: var(--primary-hover);
+  background: linear-gradient(135deg, #f43f5e, #e11d48);
   transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(13, 47, 32, 0.25);
+  box-shadow: 0 6px 18px rgba(225, 29, 72, 0.4);
 }
 
 .expWaBtn {
@@ -1894,10 +1904,10 @@ h2 em {
   position: relative;
   width: 100%;
   height: 430px;
-  border-radius: 12px;
+  border-radius: 14px;
   overflow: hidden;
-  border: 1.5px solid var(--border-light);
-  box-shadow: 0 10px 30px rgba(13, 47, 32, 0.08);
+  border: 1.5px solid #fecdd3;
+  box-shadow: 0 10px 30px rgba(225, 29, 72, 0.08);
 }
 
 .expCenterMapWrapper iframe {
@@ -3394,7 +3404,20 @@ form .primary {
 
 @media (max-width: 560px) {
   .nav {
+    height: 76px;
     padding: 0 16px;
+  }
+  .mark {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    font-size: 13px;
+  }
+  .brand b {
+    font-size: 13px;
+  }
+  .brand small {
+    font-size: 8.5px;
   }
   .navCta {
     display: none;

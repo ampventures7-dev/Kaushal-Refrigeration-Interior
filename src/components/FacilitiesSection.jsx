@@ -7,7 +7,7 @@ export default function FacilitiesSection() {
     icon: <Building2 size={22} />,
     title: "Kaushal Refrigeration & Interrior",
     tagline: "Headquarters & Commercial Display Experience Studio",
-    address: "20A, Shivpuri Colony, Jhotwara, Jaipur, Rajasthan 302012",
+    address: "20A, Jeen Mata Marg, Satya Nagar, D.K. Nagar, Jhotwara, Jaipur, Rajasthan 302012",
     phone: "+91 98291 96508",
     email: "autarram528@gmail.com"
   };
