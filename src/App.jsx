@@ -34,12 +34,28 @@ export default function App() {
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-        return parsed.map((item) => {
+        const mappedSaved = parsed.map((item) => {
           const fresh = defaultGalleryItems.find((d) => d.id === item.id);
-          return fresh
-            ? { ...fresh, ...item, title: fresh.title, desc: fresh.desc, specs: fresh.specs, category: fresh.category }
+          if (fresh) {
+            return {
+              ...fresh,
+              ...item,
+              title: fresh.title,
+              desc: fresh.desc,
+              specs: fresh.specs,
+              category: fresh.category,
+              subCategory: fresh.subCategory
+            };
+          }
+          return item.category === "Bakery"
+            ? { ...item, category: "Display Counter", subCategory: item.subCategory || "Cold" }
             : item;
         });
+
+        // Merge any new default items (such as dedicated Warm / Normal counters)
+        const savedIds = new Set(mappedSaved.map((i) => i.id));
+        const missingDefaults = defaultGalleryItems.filter((d) => !savedIds.has(d.id));
+        return [...mappedSaved, ...missingDefaults];
       } catch (e) {
         return defaultGalleryItems;
       }

@@ -19,7 +19,8 @@ export default function AdminModal({
 
   // Form state for adding new photo
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("Bakery");
+  const [category, setCategory] = useState("Display Counter");
+  const [subCategory, setSubCategory] = useState("Cold");
   const [location, setLocation] = useState("Jhotwara Manufacturing Unit, Jaipur");
   const [src, setSrc] = useState("");
   const [previewSrc, setPreviewSrc] = useState("");
@@ -76,6 +77,7 @@ export default function AdminModal({
       type: "image",
       title: title.trim(),
       category: category,
+      subCategory: category === "Display Counter" ? subCategory : undefined,
       location: location.trim(),
       src: src,
       desc: desc.trim() || "High quality commercial refrigeration equipment manufactured in Jaipur.",
@@ -208,13 +210,24 @@ export default function AdminModal({
                   <div className="adminField">
                     <label>Category *</label>
                     <select value={category} onChange={(e) => setCategory(e.target.value)}>
-                      <option value="Bakery">Bakery</option>
+                      <option value="Display Counter">Display Counter</option>
                       <option value="Sweet Displays">Sweet Displays</option>
                       <option value="Commercial Chillers">Commercial Chillers</option>
                       <option value="Custom Fabrication">Custom Fabrication</option>
                       <option value="Videos">Videos</option>
                     </select>
                   </div>
+
+                  {category === "Display Counter" && (
+                    <div className="adminField">
+                      <label>Counter Type (Temperature) *</label>
+                      <select value={subCategory} onChange={(e) => setSubCategory(e.target.value)}>
+                        <option value="Cold">❄️ Cold (Chilled - For Cakes, Pastries, Drinks)</option>
+                        <option value="Warm">♨️ Warm (Hot Case - For Patties, Samosas, Warm Snacks)</option>
+                        <option value="Normal">🌿 Normal (Ambient - For Dry Cookies, Namkeen, Breads)</option>
+                      </select>
+                    </div>
+                  )}
 
                   <div className="adminField">
                     <label>Location / Tag</label>

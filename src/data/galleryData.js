@@ -2,12 +2,29 @@ export const galleryItems = [
   {
     id: 100,
     type: "image",
-    title: "Titanic Piano-Curved Glass Bakery & Cake Showcase",
-    category: "Bakery",
-    location: "Custom Bakery Showcase, Jaipur",
+    title: "Titanic Piano-Curved Glass Cake & Cold Display Showcase",
+    category: "Display Counter",
+    subCategory: "Cold",
+    location: "Custom Bakery & Pastry Showcase, Jaipur",
     src: "/gallery/titanic_showcase.jpg",
-    desc: "Exclusive piano-curved glass bakery showcase featuring custom 'TITANIC' anchor LED illuminated base, warm shelf lighting, and 3-tier cake display deck.",
-    specs: ["Piano-Curved Glass Enclosure", "Custom TITANIC Anchor LED Base", "3-Tier Warm LED Shelf Bars", "Anti-Drying Chilling Technology"]
+    desc: "Exclusive piano-curved glass refrigerated cold display showcase featuring custom 'TITANIC' anchor LED illuminated base, warm shelf lighting, and 3-tier chilled cake display deck.",
+    specs: ["Cold (Chilled) Cake Showcase", "Piano-Curved Glass Enclosure", "Custom TITANIC Anchor LED Base", "Anti-Drying Chilling Technology (+2°C to +8°C)"]
+  },
+  {
+    id: 105,
+    type: "image",
+    title: "Heated Warm Food Display Counter (Hot Case for Patties & Samosas)",
+    category: "Display Counter",
+    subCategory: "Warm",
+    location: "Factory Assembly Bay, Jhotwara, Jaipur",
+    src: "/gallery/1000201983.jpg",
+    desc: "Heavy-duty commercial warm display counter (Heated Hot Case) crafted with Titanium Gold mirror stainless steel framing, golden textured front accent panel, and digital thermostat heating control (+30°C to +85°C). Keeps patties, samosas, kachoris, puffs, and bakery savouries oven-fresh, crispy, and warm.",
+    specs: [
+      "Warm (Heated Hot Case) Counter",
+      "Thermostat Heating Control (+30°C to +85°C)",
+      "Titanium Gold Mirror SS & Textured Accent Panel",
+      "Warm LED Shelf Lights with Internal Humidity Pan"
+    ]
   },
   {
     id: 101,
@@ -59,7 +76,6 @@ export const galleryItems = [
     desc: "HD video demonstration of custom commercial refrigeration counter fabrication, showing argon welding finish, LED lighting, and cooling setup.",
     specs: ["Factory Video Tour", "SS 304 Food Grade Steel", "Precision Argon Welding", "Live Refrigeration Test"]
   },
-
   {
     id: 3,
     type: "image",
@@ -73,52 +89,57 @@ export const galleryItems = [
   {
     id: 4,
     type: "image",
-    title: "L-Shaped Corner Bakery Display Showcase",
-    category: "Bakery",
-    location: "Modern Bakery Outlet, Jaipur",
+    title: "L-Shaped Corner Cold Display Showcase",
+    category: "Display Counter",
+    subCategory: "Cold",
+    location: "Modern Confectionery Outlet, Jaipur",
     src: "/gallery/1000201978.jpg",
-    desc: "Premium L-shaped corner bakery showcase with Titanium Gold trim accents and seamless corner glass joining for maximum product visibility.",
-    specs: ["L-Shape Modular Structure", "Titanium Gold Trim Accents", "Seamless Glass Cornering", "Multi-Zone Cooling System"]
+    desc: "Premium L-shaped corner cold display counter with Titanium Gold trim accents and seamless corner glass joining for maximum product visibility.",
+    specs: ["Cold (Chilled) Display Counter", "L-Shape Modular Structure", "Titanium Gold Trim Accents", "Multi-Zone Cooling System"]
   },
   {
     id: 5,
     type: "image",
-    title: "4-Tier Straight Glass Bakery Showcase (Orange Edition)",
-    category: "Bakery",
+    title: "4-Tier Straight Glass Cold Display Showcase (Orange Edition)",
+    category: "Display Counter",
+    subCategory: "Cold",
     location: "Confectionery Store, Jaipur",
     src: "/gallery/1000201979.jpg",
-    desc: "Vibrant orange lower base straight glass display counter featuring 4 spacious display tiers with digital temperature control.",
-    specs: ["Vibrant Orange Acrylic Base", "4 Display Level Capacities", "Digital Microprocessor Controller", "Double Glazed Tempered Glass"]
+    desc: "Vibrant orange lower base straight glass cold display counter featuring 4 spacious display tiers with digital temperature control.",
+    specs: ["Cold (Chilled) Display Counter", "Vibrant Orange Acrylic Base", "4 Display Level Capacities", "Digital Microprocessor Controller"]
   },
   {
     id: 6,
     type: "image",
-    title: "Gold Trim Straight Glass Pastry & Cake Counter",
-    category: "Bakery",
+    title: "Gold Trim Straight Glass Cold Pastry & Cake Counter",
+    category: "Display Counter",
+    subCategory: "Cold",
     location: "Pastry Shop, Jaipur",
     src: "/gallery/1000201982.jpg",
-    desc: "Sleek stainless steel straight glass showcase featuring gold mirror border trims and textured lower ventilation panel.",
-    specs: ["Gold Mirror Trim Accents", "Textured Ventilation Base", "Uniform Airflow Cooling", "Heavy Duty Rear Sliding Doors"]
+    desc: "Sleek stainless steel straight glass cold display counter featuring gold mirror border trims and textured lower ventilation panel.",
+    specs: ["Cold (Chilled) Display Counter", "Gold Mirror Trim Accents", "Textured Ventilation Base", "Uniform Airflow Cooling"]
   },
   {
     id: 8,
     type: "image",
-    title: "Warm LED Gold Edition Cake Showcase",
-    category: "Bakery",
+    title: "Warm LED Gold Edition Cake Cold Showcase",
+    category: "Display Counter",
+    subCategory: "Cold",
     location: "Gourmet Bakery, Jaipur",
     src: "/gallery/1000202013.jpg",
-    desc: "High-end dessert showcase counter illuminated with warm LED strips and featuring a handcrafted golden textured lower panel.",
-    specs: ["Warm Gold LED Illumination", "Handcrafted Textured Panel", "Auto Defrost Chilling System", "Sliding Rear Access Glass"]
+    desc: "High-end dessert cold display counter illuminated with warm LED strips and featuring a handcrafted golden textured lower panel.",
+    specs: ["Cold (Chilled) Display Counter", "Warm Gold LED Illumination", "Handcrafted Textured Panel", "Auto Defrost Chilling System"]
   },
   {
     id: 9,
     type: "image",
-    title: "Side Profile • L-Shape Corner Glass Chiller",
-    category: "Bakery",
+    title: "Side Profile • L-Shape Corner Glass Chiller Counter",
+    category: "Display Counter",
+    subCategory: "Cold",
     location: "Bakery Workshop, Jaipur",
     src: "/gallery/1000202028.jpg",
-    desc: "Side view of an L-shaped corner glass bakery chiller showing structural steel alignment and dual-zone airflow integration.",
-    specs: ["Custom Corner Angle Cut", "Dual Compressor Setup", "Heavy Duty Steel Sub-Frame", "High Density PUF Insulation"]
+    desc: "Side view of an L-shaped corner glass cold display chiller counter showing structural steel alignment and dual-zone airflow integration.",
+    specs: ["Cold (Chilled) Display Counter", "Custom Corner Angle Cut", "Dual Compressor Setup", "High Density PUF Insulation"]
   },
   {
     id: 10,
@@ -133,22 +154,24 @@ export const galleryItems = [
   {
     id: 11,
     type: "image",
-    title: "RGB Neon Under-Glow Straight Glass Showcase",
-    category: "Bakery",
+    title: "RGB Neon Under-Glow Straight Glass Cold Showcase",
+    category: "Display Counter",
+    subCategory: "Cold",
     location: "Modern Cafe & Confectionery, Jaipur",
     src: "/gallery/1000202032.jpg",
-    desc: "Straight glass display counter equipped with striking blue RGB neon under-glow strip for high aesthetic appeal in nighttime store ambiance.",
-    specs: ["Blue RGB Neon Under-Glow", "Straight Tempered Front Glass", "SS 304 Food Grade Interior", "Low Power Consumption Fan"]
+    desc: "Straight glass cold display counter equipped with striking blue RGB neon under-glow strip for high aesthetic appeal in nighttime store ambiance.",
+    specs: ["Cold (Chilled) Display Counter", "Blue RGB Neon Under-Glow", "Straight Tempered Front Glass", "SS 304 Food Grade Interior"]
   },
   {
     id: 12,
     type: "image",
-    title: "Gourmet Chocolate Cake & Pastry Chiller",
-    category: "Bakery",
+    title: "Gourmet Chocolate Cake & Pastry Cold Chiller",
+    category: "Display Counter",
+    subCategory: "Cold",
     location: "Artisan Cake Studio, Jaipur",
     src: "/gallery/1000202034.jpg",
-    desc: "Refrigerated pastry counter filled with chocolate truffle cakes, black forest, and creamy pastries kept under optimal humidity.",
-    specs: ["Anti-Drying Cooling Tech", "Multi-Tier Glass Shelving", "High Contrast Interior LED", "Digital Temperature Monitor"]
+    desc: "Refrigerated pastry cold display counter filled with chocolate truffle cakes, black forest, and creamy pastries kept under optimal humidity.",
+    specs: ["Cold (Chilled) Display Counter", "Anti-Drying Cooling Tech", "Multi-Tier Glass Shelving", "Digital Temperature Monitor"]
   },
   {
     id: 13,
@@ -163,32 +186,35 @@ export const galleryItems = [
   {
     id: 14,
     type: "image",
-    title: "Circular Revolving Glass Chocolate & Bakery Counter",
-    category: "Bakery",
+    title: "Circular Revolving Glass Chocolate & Cold Display Counter",
+    category: "Display Counter",
+    subCategory: "Cold",
     location: "Retail Confectionery Store, Jaipur",
     src: "/gallery/1000202042.jpg",
-    desc: "Eye-catching circular round glass display counter flanked by straight showcases, creating an attractive focal center for chocolates and pastries.",
-    specs: ["360° Circular Glass Dome", "Multi-Level Display Trays", "Integrated Store Layout", "Subtle White LED Accent"]
+    desc: "Eye-catching circular round glass cold display counter flanked by straight showcases, creating an attractive focal center for chocolates and pastries.",
+    specs: ["Cold (Chilled) Display Counter", "360° Circular Glass Dome", "Multi-Level Display Trays", "Subtle White LED Accent"]
   },
   {
     id: 15,
     type: "image",
-    title: "Custom Bakery Cake Showcase for 'Dark Park'",
-    category: "Bakery",
+    title: "Custom Cake Cold Showcase for 'Dark Park'",
+    category: "Display Counter",
+    subCategory: "Cold",
     location: "Dark Park Bakery Outlet, Jaipur",
     src: "/gallery/1000202043.jpg",
-    desc: "Custom branded straight glass cake display showcase with gold tier glass shelves, loaded with multi-layer specialty birthday cakes.",
-    specs: ["Custom Laser-Cut Branding Panel", "Gold Coated Tier Shelves", "Digital Controller (+2°C to +6°C)", "Frost-Free Evaporator Coil"]
+    desc: "Custom branded straight glass cake cold display showcase with gold tier glass shelves, loaded with multi-layer specialty birthday cakes.",
+    specs: ["Cold (Chilled) Display Counter", "Custom Laser-Cut Branding Panel", "Gold Coated Tier Shelves", "Digital Controller (+2°C to +6°C)"]
   },
   {
     id: 16,
     type: "image",
-    title: "Curved Corner Bakery & Dry Cookie Display Counter",
-    category: "Bakery",
+    title: "Curved Corner Normal / Ambient Dry Cookie Display Counter",
+    category: "Display Counter",
+    subCategory: "Normal",
     location: "Bakery & Snacks Store, Jaipur",
     src: "/gallery/1000202050.jpg",
-    desc: "Curved front corner display showcase featuring ambient red and blue dual RGB LED strip lighting, displaying packaged dry bakery cookies.",
-    specs: ["Dual Red/Blue Ambient LED Strips", "Curved Front Tempered Glass", "High Capacity Shelf Trays", "Heavy-Duty Base Structure"]
+    desc: "Curved front corner normal / ambient display showcase featuring ambient red and blue dual RGB LED strip lighting, displaying packaged dry bakery cookies, biscuits, and namkeen without cooling.",
+    specs: ["Normal (Ambient / Dry) Counter", "No Cooling / Room Temperature", "Dual Red/Blue Ambient LED Strips", "Curved Front Tempered Glass"]
   },
   {
     id: 17,
@@ -203,22 +229,24 @@ export const galleryItems = [
   {
     id: 18,
     type: "image",
-    title: "Straight Glass Cake Showcase with Dual Neon Illumination",
-    category: "Bakery",
+    title: "Straight Glass Cake Cold Showcase with Dual Neon Illumination",
+    category: "Display Counter",
+    subCategory: "Cold",
     location: "Cake & Snack Shop, Jaipur",
     src: "/gallery/1000202055.jpg",
-    desc: "4-tier straight glass dessert showcase featuring gold brass trim shelves and dual pink/green ambient LED base lighting.",
-    specs: ["Dual Pink & Green LED Base Light", "Gold Brass Accent Shelving", "High Visibility Front Glass", "Sliding Rear Doors for Easy Access"]
+    desc: "4-tier straight glass dessert cold display showcase featuring gold brass trim shelves and dual pink/green ambient LED base lighting.",
+    specs: ["Cold (Chilled) Display Counter", "Dual Pink & Green LED Base Light", "Gold Brass Accent Shelving", "High Visibility Front Glass"]
   },
   {
     id: 19,
     type: "image",
-    title: "Cylindrical Revolving Pastry Showcase (Factory View)",
-    category: "Bakery",
+    title: "Cylindrical Revolving Pastry Cold Showcase (Factory View)",
+    category: "Display Counter",
+    subCategory: "Cold",
     location: "Factory Floor, Jhotwara",
     src: "/gallery/1000202061.jpg",
-    desc: "Round cylindrical glass pastry showcase featuring 3-tier circular glass shelves and a pristine white base, captured during final factory assembly.",
-    specs: ["Cylindrical 360° Glass Housing", "3 Tier Circular Glass Racks", "Pristine White Base Enclosure", "Smooth Revolving Motor System"]
+    desc: "Round cylindrical glass pastry cold showcase featuring 3-tier circular glass shelves and a pristine white base, captured during final factory assembly.",
+    specs: ["Cold (Chilled) Display Counter", "Cylindrical 360° Glass Housing", "3 Tier Circular Glass Racks", "Smooth Revolving Motor System"]
   },
   {
     id: 20,
@@ -233,12 +261,29 @@ export const galleryItems = [
   {
     id: 21,
     type: "image",
-    title: "3-Tier Straight Glass Chiller with Titanium Gold Trim",
-    category: "Bakery",
+    title: "3-Tier Straight Glass Cold Chiller with Titanium Gold Trim",
+    category: "Display Counter",
+    subCategory: "Cold",
     location: "Factory Showroom, Jaipur",
     src: "/gallery/1000202068.jpg",
-    desc: "3-tier straight glass showcase counter featuring Titanium Gold trim strips and official Kaushal Refrigeration brass emblem.",
-    specs: ["Titanium Gold Trim Strip", "Kaushal Refrigeration Badge", "Diffused LED Light Bars", "Compact Floor Footprint"]
+    desc: "3-tier straight glass cold display counter featuring Titanium Gold trim strips and official Kaushal Refrigeration brass emblem.",
+    specs: ["Cold (Chilled) Display Counter", "Titanium Gold Trim Strip", "Kaushal Refrigeration Badge", "Diffused LED Light Bars"]
+  },
+  {
+    id: 106,
+    type: "image",
+    title: "Commercial Warm Snack & Hot Case Counter (Heated Showcase)",
+    category: "Display Counter",
+    subCategory: "Warm",
+    location: "Fast Food & Confectionery Outlet, Jaipur",
+    src: "/gallery/1000202068.jpg",
+    desc: "Commercial electric warm display counter (Hot Case) with food-grade SS 304 heating deck and uniform convection warm airflow for bakeries, tea points, and cafeterias.",
+    specs: [
+      "Warm (Heated Hot Case) Counter",
+      "Even Convection Warm Air Distribution",
+      "SS 304 Food-Grade Heated Storage Deck",
+      "Thermostat Temp Adjustment (+30°C to +85°C)"
+    ]
   },
   {
     id: 22,
@@ -253,12 +298,13 @@ export const galleryItems = [
   {
     id: 23,
     type: "image",
-    title: "Extended Double-Counter Slanted Glass Bakery Run",
-    category: "Bakery",
+    title: "Extended Double-Counter Slanted Glass Cold Display Run",
+    category: "Display Counter",
+    subCategory: "Cold",
     location: "Bakery Showroom, Jaipur",
     src: "/gallery/1000202071.jpg",
-    desc: "Long continuous run of 2 joined slanted glass display counters with gold shelf trims and white side panels for large bakery outlets.",
-    specs: ["Modular Continuous Counter Run", "Slanted Front Tempered Glass", "Gold Trim Shelf Rails", "High-Capacity Chilling Deck"]
+    desc: "Long continuous run of 2 joined slanted glass cold display counters with gold shelf trims and white side panels for large retail outlets.",
+    specs: ["Cold (Chilled) Display Counter", "Modular Continuous Counter Run", "Slanted Front Tempered Glass", "High-Capacity Chilling Deck"]
   },
   {
     id: 24,
@@ -283,67 +329,94 @@ export const galleryItems = [
   {
     id: 26,
     type: "image",
-    title: "4-Tier Slanted Straight Glass Bakery Chiller",
-    category: "Bakery",
+    title: "4-Tier Slanted Straight Glass Cold Display Chiller",
+    category: "Display Counter",
+    subCategory: "Cold",
     location: "Factory Testing Floor, Jaipur",
     src: "/gallery/1000202104.jpg",
-    desc: "4-tier slanted straight glass bakery display showcase under testing with full internal white LED shelf illumination.",
-    specs: ["4 Tier Display Racks", "Slanted Straight Front Glass", "Full Length LED Bars Per Shelf", "Bottom Mounted Air Compressor"]
+    desc: "4-tier slanted straight glass cold display showcase counter under testing with full internal white LED shelf illumination.",
+    specs: ["Cold (Chilled) Display Counter", "4 Tier Display Racks", "Slanted Straight Front Glass", "Bottom Mounted Air Compressor"]
   },
   {
     id: 27,
     type: "image",
-    title: "Titanium Gold Mirror SS Bakery Showcase",
-    category: "Bakery",
+    title: "Titanium Gold Mirror SS Cold Showcase",
+    category: "Display Counter",
+    subCategory: "Cold",
     location: "Factory Finishing Bay, Jaipur",
     src: "/gallery/1000202139.jpg",
-    desc: "Luxury bakery showcase featuring full Titanium Gold mirror stainless steel body framing and high-transparency glass panels.",
-    specs: ["Titanium Gold Mirror Stainless Steel", "High-Transparency Front Glass", "Perforated Air Circulation Plates", "Digital Temperature Readout"]
+    desc: "Luxury cold display showcase featuring full Titanium Gold mirror stainless steel body framing and high-transparency glass panels.",
+    specs: ["Cold (Chilled) Display Counter", "Titanium Gold Mirror Stainless Steel", "High-Transparency Front Glass", "Perforated Air Circulation Plates"]
   },
   {
     id: 28,
     type: "image",
-    title: "Compact Straight Glass SS Bakery Showcase",
-    category: "Bakery",
+    title: "Compact Straight Glass SS Cold Showcase",
+    category: "Display Counter",
+    subCategory: "Cold",
     location: "Factory Floor, Jhotwara",
     src: "/gallery/1000202143.jpg",
-    desc: "Compact straight glass stainless steel bakery showcase unit engineered for small space pastry shops and cafes.",
-    specs: ["Compact Footprint Design", "Straight Tempered Front Glass", "All-Stainless Steel Body", "Plug-and-Play Chilling Unit"]
+    desc: "Compact straight glass stainless steel cold display showcase unit engineered for small space pastry shops and cafes.",
+    specs: ["Cold (Chilled) Display Counter", "Compact Footprint Design", "Straight Tempered Front Glass", "Plug-and-Play Chilling Unit"]
+  },
+  {
+    id: 107,
+    type: "image",
+    title: "Stainless Steel Straight Glass Normal / Ambient Confectionery Counter",
+    category: "Display Counter",
+    subCategory: "Normal",
+    location: "Confectionery Store, Jaipur",
+    src: "/gallery/1000202143.jpg",
+    desc: "Ambient normal display counter designed for un-refrigerated dry bakery goods, packed namkeens, muffins, cupcakes, and confectionery gifts with clean tempered glass and bright LED shelf lighting.",
+    specs: [
+      "Normal (Ambient / Room Temp) Counter",
+      "Dry Confectionery & Packaged Goods Display",
+      "Clean Tempered Straight Glass Profile",
+      "Energy-Efficient Bright White LED Strips"
+    ]
   },
   {
     id: 29,
     type: "image",
-    title: "Straight Glass Bakery Counter with Blue & Magenta Glow",
-    category: "Bakery",
+    title: "Straight Glass Cold Display Counter with Blue & Magenta Glow",
+    category: "Display Counter",
+    subCategory: "Cold",
     location: "Factory Assembly Bay, Jhotwara",
     src: "/gallery/1000202017.jpg",
-    desc: "Straight glass display counter fitted with dynamic blue and magenta red under-glow LED lights and mobile heavy-duty caster wheels.",
-    specs: ["Blue & Magenta LED Underglow", "Mobile Heavy Caster Wheels", "Straight Tempered Front Glass", "Digital Microprocessor Control"]
+    desc: "Straight glass cold display counter fitted with dynamic blue and magenta red under-glow LED lights and mobile heavy-duty caster wheels.",
+    specs: ["Cold (Chilled) Display Counter", "Blue & Magenta LED Underglow", "Mobile Heavy Caster Wheels", "Straight Tempered Front Glass"]
   },
   {
     id: 30,
     type: "image",
     title: "Dual-Zone Half Hot & Half Cold Display Showcase (Gold Checkered Edition)",
-    category: "Custom Fabrication",
+    category: "Display Counter",
+    subCategory: "Warm",
     location: "Factory Custom Fabrication Unit, Jaipur",
     src: "/gallery/1000202070.jpg",
-    desc: "Custom-engineered dual-temperature commercial showcase counter featuring an upper heated hot section for warm snacks, patties, samosas, and savouries, paired with a lower refrigerated cold section for chilled sweets, cakes, and dairy items. Finished with handcrafted gold & bronze checkered front styling and gold mirror SS frame.",
+    desc: "Custom-engineered dual-temperature commercial display showcase counter featuring an upper heated hot section for warm snacks, patties, samosas, and savouries, paired with a lower refrigerated cold section for chilled sweets, cakes, and dairy items. Finished with handcrafted gold & bronze checkered front styling and gold mirror SS frame.",
     specs: [
+      "Warm (Heated Hot Case) + Cold Chilled Dual-Zone",
       "Top Section: Heated Hot Display (For Warm Savouries & Snacks)",
       "Bottom Section: Refrigerated Cold Display",
-      "Independent Dual Temperature Controls",
-      "Gold & Bronze Checkered Pattern with Gold Mirror SS"
+      "Independent Dual Temperature Controls"
     ]
   },
   {
     id: 31,
     type: "image",
-    title: "4-Tier Straight Glass Showcase (Orange Base - Factory Test)",
-    category: "Bakery",
+    title: "4-Tier Straight Glass Normal / Ambient Display Counter (Orange Base)",
+    category: "Display Counter",
+    subCategory: "Normal",
     location: "Factory Floor, Jhotwara",
     src: "/gallery/1000202079.jpg",
-    desc: "4-tier straight glass showcase with orange base during electric & refrigeration testing on the factory floor.",
-    specs: ["Bright Orange Side & Front Base", "4 Level Spacious Shelving", "Commercial Cooling Coil", "Factory Quality Certified"]
+    desc: "4-tier straight glass normal / ambient display counter with bright orange base, engineered for dry bakery cookies, breads, toast, rusks, and confectionery at room temperature.",
+    specs: [
+      "Normal (Ambient / Room Temp) Counter",
+      "No Chilling/Heating - Ideal for Dry Cookies & Breads",
+      "Bright Orange Side & Front Base",
+      "4 Level Spacious Shelving"
+    ]
   },
   {
     id: 32,
@@ -377,4 +450,5 @@ export const galleryItems = [
   }
 ];
 
-export const galleryCategories = ["All", "Videos", "Bakery", "Sweet Displays", "Commercial Chillers", "Custom Fabrication"];
+export const galleryCategories = ["All", "Videos", "Display Counter", "Sweet Displays", "Commercial Chillers", "Custom Fabrication"];
+export const displayCounterSubTypes = ["All", "Cold", "Warm", "Normal"];
