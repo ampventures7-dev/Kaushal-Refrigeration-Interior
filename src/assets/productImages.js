@@ -1,5 +1,5 @@
 export const productImages = {
-  hero: "/hero-showcase.jpg",
+  hero: "/gallery/titanic_showcase.jpg",
   cake: "/gallery/1000201982.jpg",
   counter: "/gallery/1000201979.jpg",
   showcase: "/gallery/1000201968.jpg",

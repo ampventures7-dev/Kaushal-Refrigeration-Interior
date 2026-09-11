@@ -1,5 +1,55 @@
 export const galleryItems = [
   {
+    id: 100,
+    type: "image",
+    title: "Titanic Piano-Curved Glass Bakery & Cake Showcase",
+    category: "Bakery",
+    location: "Custom Bakery Showcase, Jaipur",
+    src: "/gallery/titanic_showcase.jpg",
+    desc: "Exclusive piano-curved glass bakery showcase featuring custom 'TITANIC' anchor LED illuminated base, warm shelf lighting, and 3-tier cake display deck.",
+    specs: ["Piano-Curved Glass Enclosure", "Custom TITANIC Anchor LED Base", "3-Tier Warm LED Shelf Bars", "Anti-Drying Chilling Technology"]
+  },
+  {
+    id: 101,
+    type: "image",
+    title: "4-Door Solid Stainless Steel Vertical Commercial Freezer & Chiller",
+    category: "Commercial Chillers",
+    location: "Jhotwara Manufacturing Unit, Jaipur",
+    src: "/gallery/4_door_vertical_chiller.jpg",
+    desc: "Heavy-duty 4-door vertical commercial refrigerator constructed from SS 304 food-grade stainless steel. Engineered for bulk dairy, raw meat, ice-cream, and kitchen storage with heavy-duty door latches and bottom compressor compartment.",
+    specs: ["SS 304 Food-Grade Stainless Steel", "Heavy-Duty Dual Latch System", "High-Density PUF Insulation", "Digital Microprocessor Controller"]
+  },
+  {
+    id: 102,
+    type: "image",
+    title: "Commercial Stainless Steel Pizza Prep Counter with Under-Counter Cold Storage",
+    category: "Custom Fabrication",
+    location: "Commercial Kitchen & Pizzeria, Jaipur",
+    src: "/gallery/undercounter_bain_marie.jpg",
+    desc: "Commercial stainless steel pizza preparation counter featuring a top ingredient topping rail with GN pan slots for fresh pizza toppings and cheese, combined with an under-counter refrigerated cold storage cabinet below for pizza dough and cold ingredients.",
+    specs: ["Top Ingredient Topping Rail (GN Pans)", "Under-Counter Refrigerated Cold Storage", "Stainless Steel Heavy Pizza Prep Deck", "Precision Digital Microprocessor Chilling"]
+  },
+  {
+    id: 103,
+    type: "image",
+    title: "Heavy-Duty Commercial Stainless Steel Water Cooler (3 Brass Chrome Taps)",
+    category: "Custom Fabrication",
+    location: "Factory & Institution Project, Jaipur",
+    src: "/gallery/3_tap_water_cooler.jpg",
+    desc: "Industrial-grade 150+ Litre capacity stainless steel water cooler equipped with 3 heavy-duty chrome taps, integrated splash drip tray, and fast chilling copper coil mechanism.",
+    specs: ["150L+ High Capacity Cooling Tank", "3 Chrome Plated Brass Taps", "Fast Chilling Copper Coil", "Full SS 304 Outer Enclosure"]
+  },
+  {
+    id: 104,
+    type: "image",
+    title: "L-Shaped Modern White Sweets & Mithai Showroom Counter Setup",
+    category: "Sweet Displays",
+    location: "Premium Mithai Showroom, Jaipur",
+    src: "/gallery/sweets_showroom_setup.jpg",
+    desc: "Turnkey showroom installation showcasing a seamless L-shaped white base straight glass sweet display counter, integrated billing desk, and multi-tier mithai display section.",
+    specs: ["L-Shape Continuous Modular Counter", "Pristine White Acrylic Base Panels", "Anti-Fog Straight Glass Front", "Integrated Billing & Cash Station"]
+  },
+  {
     id: 1,
     type: "video",
     title: "Live Factory Walkthrough • Commercial Showcase & Chiller Unit",
@@ -9,16 +59,7 @@ export const galleryItems = [
     desc: "HD video demonstration of custom commercial refrigeration counter fabrication, showing argon welding finish, LED lighting, and cooling setup.",
     specs: ["Factory Video Tour", "SS 304 Food Grade Steel", "Precision Argon Welding", "Live Refrigeration Test"]
   },
-  {
-    id: 2,
-    type: "image",
-    title: "Kaushal Refrigeration & Interiors • Official Business Card",
-    category: "Our Business Card",
-    location: "Ramavtar Jangid • Khatipura Puliya, Jhotwara, Jaipur",
-    src: "/gallery/1000201965.jpg",
-    desc: "Official hardcopy business card of Kaushal Refrigeration & Interiors (Prop. Ramavtar Jangid). Leading manufacturers of Restaurants, Ice-Cream Parlour, Sweet & Bakery Counters, Water Coolers, Refrigerators, Freezers & Kitchen Equipment.",
-    specs: ["Prop. Ramavtar Jangid", "Contact: 9829196508 / 7742206801 / 9636126508", "Alpana Colony, Khatipura Puliya Ke Niche", "Near Bombay Dyeing, Jhotwara, Jaipur"]
-  },
+
   {
     id: 3,
     type: "image",
@@ -282,12 +323,17 @@ export const galleryItems = [
   {
     id: 30,
     type: "image",
-    title: "Luxury Gold & Bronze Checkered Pattern Showcase",
-    category: "Sweet Displays",
+    title: "Dual-Zone Half Hot & Half Cold Display Showcase (Gold Checkered Edition)",
+    category: "Custom Fabrication",
     location: "Factory Custom Fabrication Unit, Jaipur",
     src: "/gallery/1000202070.jpg",
-    desc: "Custom handcrafted luxury showcase featuring an intricate golden and bronze checkered lower pattern and gold mirror frame.",
-    specs: ["Gold & Bronze Checkered Pattern", "Gold Mirror Stainless Steel Frame", "Custom Artisan Craftsmanship", "High Precision Chilling Deck"]
+    desc: "Custom-engineered dual-temperature commercial showcase counter featuring an upper heated hot section for warm snacks, patties, samosas, and savouries, paired with a lower refrigerated cold section for chilled sweets, cakes, and dairy items. Finished with handcrafted gold & bronze checkered front styling and gold mirror SS frame.",
+    specs: [
+      "Top Section: Heated Hot Display (For Warm Savouries & Snacks)",
+      "Bottom Section: Refrigerated Cold Display",
+      "Independent Dual Temperature Controls",
+      "Gold & Bronze Checkered Pattern with Gold Mirror SS"
+    ]
   },
   {
     id: 31,
@@ -331,4 +377,4 @@ export const galleryItems = [
   }
 ];
 
-export const galleryCategories = ["All", "Our Business Card", "Videos", "Bakery", "Sweet Displays", "Commercial Chillers", "Custom Fabrication"];
+export const galleryCategories = ["All", "Videos", "Bakery", "Sweet Displays", "Commercial Chillers", "Custom Fabrication"];

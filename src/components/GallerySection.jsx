@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Sparkles, Maximize2, X, CheckCircle2, Play } from "lucide-react";
-import { galleryItems, galleryCategories } from "../data/galleryData";
+import { Sparkles, Maximize2, X, CheckCircle2, Play, Trash2, PlusCircle } from "lucide-react";
+import { galleryCategories } from "../data/galleryData";
 
-export default function GallerySection() {
+export default function GallerySection({ items, isAdmin, onDeleteItem, onOpenAdmin }) {
   const [activeCategory, setActiveCategory] = useState("All");
   const [activeItem, setActiveItem] = useState(null);
 
-  const filteredItems = galleryItems.filter(
+  const filteredItems = (items || []).filter(
     (item) => activeCategory === "All" || item.category === activeCategory
   );
 
@@ -17,7 +17,7 @@ export default function GallerySection() {
         <div className="galleryHeader">
           <p className="galleryEyebrow">
             <span className="galleryEyebrowLine" />
-            OUR CRAFTSMANSHIP • {galleryItems.length} REAL PROJECTS & VIDEOS
+            OUR CRAFTSMANSHIP • {items ? items.length : 0} REAL PROJECTS & VIDEOS
           </p>
           <h2 className="galleryHeading">Real Projects & <em>Factory Showroom Gallery</em></h2>
           <p className="gallerySubtext">
@@ -41,6 +41,15 @@ export default function GallerySection() {
 
         {/* Gallery Grid */}
         <div className="galleryGrid">
+          {/* If Admin, show quick Add Card */}
+          {isAdmin && (
+            <div className="adminAddQuickCard" onClick={onOpenAdmin}>
+              <PlusCircle size={36} color="#27724f" />
+              <h3>Add New Photo</h3>
+              <p>Upload or paste image link</p>
+            </div>
+          )}
+
           {filteredItems.map((item) => (
             <div
               key={item.id}
@@ -68,12 +77,29 @@ export default function GallerySection() {
                     src={item.src}
                     alt={item.title}
                     loading="lazy"
-                    style={item.category === "Our Business Card" ? { objectFit: "contain", background: "#092015", padding: "6px" } : {}}
                   />
                 )}
                 <span className="galleryCategoryBadge">
                   {item.type === "video" ? "📹 Factory Video" : item.category}
                 </span>
+
+                {/* Admin Delete Action Button */}
+                {isAdmin && (
+                  <button
+                    type="button"
+                    className="galleryAdminDeleteBtn"
+                    title="Delete photo"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (window.confirm(`Delete "${item.title}"?`)) {
+                        onDeleteItem(item.id);
+                      }
+                    }}
+                  >
+                    <Trash2 size={16} />
+                  </button>
+                )}
+
                 <button
                   type="button"
                   className="galleryZoomBtn"
@@ -83,14 +109,16 @@ export default function GallerySection() {
                   <Maximize2 size={16} />
                 </button>
               </div>
+
               <div className="galleryCardBody">
                 <small className="galleryLocation">{item.location}</small>
                 <h3 className="galleryTitle">{item.title}</h3>
                 <p className="gallerySnippet">{item.desc}</p>
                 <div className="galleryQuickTags">
-                  {item.specs.slice(0, 2).map((spec, idx) => (
-                    <span key={idx}>✓ {spec}</span>
-                  ))}
+                  {item.specs &&
+                    item.specs.slice(0, 2).map((spec, idx) => (
+                      <span key={idx}>✓ {spec}</span>
+                    ))}
                 </div>
               </div>
             </div>
@@ -131,12 +159,13 @@ export default function GallerySection() {
 
               <h4>ENGINEERED SPECIFICATIONS</h4>
               <ul className="galleryModalSpecs">
-                {activeItem.specs.map((spec, i) => (
-                  <li key={i}>
-                    <CheckCircle2 size={15} color="#27724f" />
-                    <span>{spec}</span>
-                  </li>
-                ))}
+                {activeItem.specs &&
+                  activeItem.specs.map((spec, i) => (
+                    <li key={i}>
+                      <CheckCircle2 size={15} color="#27724f" />
+                      <span>{spec}</span>
+                    </li>
+                  ))}
               </ul>
 
               <div className="galleryModalActions">

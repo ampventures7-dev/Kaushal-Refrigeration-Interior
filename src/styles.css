@@ -3318,6 +3318,33 @@ form .primary {
   .nav nav {
     display: none;
   }
+  .nav {
+    height: 76px;
+    padding: 0 16px;
+  }
+  .brand {
+    gap: 10px;
+    min-width: 0;
+  }
+  .mark {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    font-size: 13px;
+  }
+  .brand b {
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    line-height: 1.25;
+  }
+  .brand small {
+    font-size: 8.5px;
+    letter-spacing: 0.8px;
+  }
+  .navActions {
+    gap: 8px;
+    flex-shrink: 0;
+  }
   .hero, .intro, .darkSection, .contact {
     grid-template-columns: 1fr;
   }
@@ -3404,20 +3431,43 @@ form .primary {
 
 @media (max-width: 560px) {
   .nav {
-    height: 76px;
-    padding: 0 16px;
+    height: 68px;
+    padding: 0 10px;
+  }
+  .brand {
+    gap: 8px;
+    min-width: 0;
+    flex-shrink: 1;
   }
   .mark {
-    width: 42px;
-    height: 42px;
-    min-width: 42px;
-    font-size: 13px;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    font-size: 11px;
+    border-width: 1.5px;
+  }
+  .brand > span:not(.mark) {
+    min-width: 0;
+    overflow: hidden;
   }
   .brand b {
-    font-size: 13px;
+    font-size: 11px;
+    letter-spacing: 0.2px;
+    line-height: 1.2;
+    font-weight: 700;
   }
   .brand small {
-    font-size: 8.5px;
+    font-size: 7.5px;
+    letter-spacing: 0.3px;
+    margin-top: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+  }
+  .navActions {
+    gap: 6px;
+    flex-shrink: 0;
   }
   .navCta {
     display: none;
@@ -3426,7 +3476,16 @@ form .primary {
     display: none;
   }
   .navWa, .navInsta {
-    padding: 8px 10px;
+    padding: 6px 8px;
+    border-radius: 8px;
+  }
+  .navWa svg, .navInsta svg, .threeDotsBtn svg {
+    width: 17px;
+    height: 17px;
+  }
+  .threeDotsBtn {
+    padding: 6px 8px;
+    border-radius: 8px;
   }
   .floatingWhatsApp {
     bottom: 18px;
@@ -3609,3 +3668,690 @@ form .primary {
     gap: 12px;
   }
 }
+
+/* ==========================================================================
+   MOBILE MENU & 3-DOTS DRAWER STYLES
+   ========================================================================== */
+.threeDotsBtn {
+  display: none;
+  background: var(--mark-bg);
+  border: 1px solid var(--mark-border);
+  color: #ffffff;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.threeDotsBtn:hover {
+  background: var(--nav-cta-hover);
+}
+
+.adminLoginTriggerBtn, .adminActiveBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.adminLoginTriggerBtn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--nav-link);
+}
+
+.adminLoginTriggerBtn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+}
+
+.adminActiveBtn {
+  background: #27724f;
+  border: 1px solid #369b6b;
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(39, 114, 79, 0.4);
+}
+
+@media (max-width: 900px) {
+  .threeDotsBtn {
+    display: inline-flex;
+  }
+}
+
+/* Mobile Drawer Overlay */
+.mobileDrawerOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(6px);
+  z-index: 9999;
+  display: flex;
+  justify-content: flex-end;
+  animation: fadeIn 0.2s ease;
+}
+
+.mobileDrawer {
+  width: 85vw;
+  max-width: 340px;
+  height: 100%;
+  background: #092015;
+  border-left: 1px solid #1a4a33;
+  color: #ffffff;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.5);
+  animation: slideInRight 0.25s ease;
+  overflow-y: auto;
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.mobileDrawerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #143d29;
+}
+
+.mobileBrand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mobileBrand b {
+  display: block;
+  font-size: 13px;
+  letter-spacing: -0.2px;
+}
+
+.mobileBrand small {
+  display: block;
+  font-size: 10px;
+  color: #8bb29d;
+}
+
+.mobileDrawerClose {
+  background: #123d29;
+  border: 1px solid #1f5e40;
+  color: #ffffff;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.mobileDrawerLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 20px;
+}
+
+.mobileDrawerLinks a {
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: #cbe3d6;
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+.mobileDrawerLinks a:hover, .mobileDrawerLinks a:active {
+  background: #143d29;
+  color: #ffffff;
+  transform: translateX(4px);
+}
+
+.mobileDrawerDivider {
+  height: 1px;
+  background: #143d29;
+  margin: 20px 0;
+}
+
+.mobileAdminBtn {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #236846;
+  background: #123c28;
+  color: #ffffff;
+  font-size: 13.5px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.mobileAdminBtn.active {
+  background: #1c5c3e;
+  border-color: #2e9162;
+  box-shadow: 0 0 14px rgba(46, 145, 98, 0.4);
+}
+
+.mobileDrawerFooter {
+  margin-top: auto;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobileDrawerInsta, .mobileDrawerWa {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.mobileDrawerInsta {
+  background: rgba(225, 48, 108, 0.15);
+  border: 1px solid rgba(225, 48, 108, 0.35);
+  color: #ff7597;
+}
+
+.mobileDrawerWa {
+  background: #25d366;
+  color: #04140b;
+}
+
+/* ==========================================================================
+   ADMIN PANEL MODAL STYLES
+   ========================================================================== */
+.adminModalBox {
+  background: #ffffff;
+  width: 92%;
+  max-width: 680px;
+  max-height: 90vh;
+  border-radius: 20px;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  color: #132219;
+  animation: modalPop 0.25s ease-out;
+}
+
+@keyframes modalPop {
+  from { opacity: 0; transform: scale(0.94); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.adminLoginContainer {
+  padding: 40px 30px;
+}
+
+.adminHeader {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.adminBadgeIcon {
+  width: 56px;
+  height: 56px;
+  background: #092015;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 16px;
+}
+
+.adminHeader h2 {
+  margin: 0 0 6px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #092015;
+}
+
+.adminHeader p {
+  margin: 0;
+  font-size: 13.5px;
+  color: #556c5e;
+}
+
+.adminLoginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.adminErrorAlert {
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  color: #991b1b;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.adminField {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.adminField.fullWidth {
+  grid-column: span 2;
+}
+
+.adminField label {
+  font-size: 12.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #27724f;
+}
+
+.adminField input, .adminField select, .adminField textarea {
+  padding: 11px 14px;
+  border: 1.5px solid #d1dcd5;
+  border-radius: 10px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+  background: #f8faf9;
+}
+
+.adminField input:focus, .adminField select:focus, .adminField textarea:focus {
+  border-color: #27724f;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(39, 114, 79, 0.12);
+}
+
+.adminSubmitBtn {
+  background: #092015;
+  color: #ffffff;
+  border: none;
+  padding: 13px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.adminSubmitBtn:hover {
+  background: #143d29;
+}
+
+.adminCredentialHint {
+  text-align: center;
+  background: #f0f7f3;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px dashed #b2d2c1;
+  margin-top: 10px;
+}
+
+.adminCredentialHint small {
+  display: block;
+  font-weight: 600;
+  color: #27724f;
+  margin-bottom: 4px;
+}
+
+.adminCredentialHint code {
+  font-family: monospace;
+  font-size: 12.5px;
+  color: #092015;
+  background: #e2ede7;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+/* ADMIN PORTAL PANEL */
+.adminPortalContainer {
+  padding: 30px;
+}
+
+.adminPortalTopBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e2ede7;
+}
+
+.adminStatusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #e6f4ed;
+  color: #1b6342;
+  border: 1px solid #a3d9bc;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.adminPortalTopBar h2 {
+  margin: 0;
+  font-size: 22px;
+  color: #092015;
+}
+
+.adminLogoutBtn {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.adminLogoutBtn:hover {
+  background: #fee2e2;
+}
+
+.adminTabs {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.adminTab {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1.5px solid #d1dcd5;
+  background: #f4f7f5;
+  color: #556c5e;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.adminTab.active {
+  background: #092015;
+  color: #ffffff;
+  border-color: #092015;
+}
+
+.adminSuccessAlert {
+  background: #ecfdf5;
+  border: 1px solid #6ee7b7;
+  color: #065f46;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.adminAddForm {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.adminFormGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.adminImageUploadInputs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.adminImageUploadInputs .fileInput {
+  font-size: 12px;
+  padding: 8px;
+}
+
+.adminImageUploadInputs .orText {
+  font-size: 11px;
+  font-weight: 700;
+  color: #888;
+}
+
+.adminImagePreviewBox {
+  background: #f4f7f5;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #d1dcd5;
+}
+
+.adminImagePreviewBox small {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #27724f;
+}
+
+.adminImagePreviewBox img {
+  max-height: 140px;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.adminActionButtons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.adminSaveBtn {
+  background: #27724f;
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 14.5px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.adminSaveBtn:hover {
+  background: #1d583c;
+}
+
+/* MANAGE & DELETE SECTION */
+.adminManageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  background: #f0f7f3;
+  padding: 12px 16px;
+  border-radius: 10px;
+}
+
+.adminManageHeader p {
+  margin: 0;
+  font-size: 13px;
+  color: #132219;
+}
+
+.adminResetBtn {
+  background: #ffffff;
+  border: 1px solid #c2d6cb;
+  color: #27724f;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.adminPhotoList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 380px;
+  overflow-y: auto;
+}
+
+.adminPhotoRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 14px;
+  border: 1px solid #e2ede7;
+  border-radius: 10px;
+  background: #fcfdfe;
+}
+
+.adminPhotoThumb {
+  width: 50px;
+  height: 50px;
+  min-width: 50px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #000;
+}
+
+.adminPhotoThumb img, .adminPhotoThumb video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.adminPhotoDetails {
+  flex: 1;
+}
+
+.adminPhotoCat {
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #27724f;
+}
+
+.adminPhotoDetails h4 {
+  margin: 2px 0 2px;
+  font-size: 13.5px;
+  color: #092015;
+}
+
+.adminPhotoDetails small {
+  font-size: 11px;
+  color: #666;
+}
+
+.adminDeletePhotoBtn {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.adminDeletePhotoBtn:hover {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+/* Gallery Admin Cards */
+.adminAddQuickCard {
+  border: 2.5px dashed #27724f;
+  background: rgba(39, 114, 79, 0.04);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.adminAddQuickCard:hover {
+  background: rgba(39, 114, 79, 0.08);
+  transform: translateY(-3px);
+}
+
+.adminAddQuickCard h3 {
+  margin: 12px 0 4px;
+  font-size: 17px;
+  color: #092015;
+}
+
+.adminAddQuickCard p {
+  margin: 0;
+  font-size: 12.5px;
+  color: #556c5e;
+}
+
+.galleryAdminDeleteBtn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #dc2626;
+  color: #ffffff;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.galleryAdminDeleteBtn:hover {
+  transform: scale(1.1);
+  background: #b91c1c;
+}
+

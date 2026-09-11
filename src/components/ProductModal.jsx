@@ -1,5 +1,44 @@
 import React from "react";
 import { WhatsAppIcon } from "./WhatsAppButton";
-export default function ProductModal({p,onClose}){if(!p)return null;return <div className="overlay" onClick={onClose}><div className="modal" onClick={e=>e.stopPropagation()}>
- <button className="close" onClick={onClose}>×</button><div className="modalImg"><img src={p.image}/></div><div className="modalInfo"><small>{p.cat} / {p.tag}</small><h2>{p.name}</h2><p>Premium commercial display solution designed for modern food businesses. Built with a focus on clean finishing, usability and long-term performance.</p><h4>Key specifications</h4><ul>{p.specs.map(x=><li key={x}>✓ {x}</li>)}</ul><a className="primary waBtn" href={`https://wa.me/919829196508?text=Hi%20Kaushal%20Refrigeration%2C%20I%20want%20to%20enquire%20about%20${encodeURIComponent(p.name)}`} target="_blank"><WhatsAppIcon size={18}/> Chat on WhatsApp ↗</a></div>
- </div></div>}
+
+export default function ProductModal({ p, onClose }) {
+  if (!p) return null;
+  return (
+    <div className="overlay" onClick={onClose}>
+      <div className="modal" onClick={(e) => e.stopPropagation()}>
+        <button className="close" onClick={onClose}>
+          ×
+        </button>
+        <div className="modalImg">
+          <img src={p.image} alt={p.name} />
+        </div>
+        <div className="modalInfo">
+          <small>
+            {p.cat} / {p.tag}
+          </small>
+          <h2>{p.name}</h2>
+          <p>
+            {p.desc ||
+              "Premium commercial display solution designed for modern food businesses. Built with a focus on clean finishing, usability and long-term performance."}
+          </p>
+          <h4>KEY SPECIFICATIONS</h4>
+          <ul>
+            {p.specs.map((x) => (
+              <li key={x}>✓ {x}</li>
+            ))}
+          </ul>
+          <a
+            className="primary waBtn"
+            href={`https://wa.me/919829196508?text=Hi%20Kaushal%20Refrigeration%2C%20I%20want%20to%20enquire%20about%20${encodeURIComponent(
+              p.name
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <WhatsAppIcon size={18} /> Chat on WhatsApp ↗
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
