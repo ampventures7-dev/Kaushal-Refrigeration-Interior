@@ -5,7 +5,7 @@ export default function FacilitiesSection() {
   const office = {
     type: "CORPORATE OFFICE & SHOWROOM",
     icon: <Building2 size={22} />,
-    title: "Kaushal Refrigeration & Interrior",
+    title: "Kaushal Refrigeration & Interior",
     tagline: "Headquarters & Commercial Display Experience Studio",
     address: "20A, Jeen Mata Marg, Satya Nagar, D.K. Nagar, Jhotwara, Jaipur, Rajasthan 302012",
     phone: "+91 98291 96508",
@@ -22,7 +22,7 @@ export default function FacilitiesSection() {
         </p>
         <h2 className="facilityHeading">Visit Our <em>Jhotwara Facility</em></h2>
         <p className="expCenterDescription" style={{ marginBottom: 30 }}>
-          Kaushal Refrigeration & Interrior operates exclusively from our centralized manufacturing unit, corporate office, and experience center located in Jhotwara, Jaipur.
+          Kaushal Refrigeration & Interior operates exclusively from our centralized manufacturing unit, corporate office, and experience center located in Jhotwara, Jaipur.
         </p>
 
         <div className="facilityGrid">

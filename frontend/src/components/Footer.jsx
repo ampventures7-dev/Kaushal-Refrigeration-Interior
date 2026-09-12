@@ -33,7 +33,7 @@ export default function Footer({ onSearchClick, onRequestQuoteClick, onOpenAdmin
           <a href="#top" className="footerBrand">
             <span className="footerBrandMark">KRI</span>
             <div className="footerBrandText">
-              <b>KAUSHAL REFRIGERATION & INTERRIOR</b>
+              <b>KAUSHAL REFRIGERATION & INTERIOR</b>
               <small>30+ YEARS OF EXPERTISE • JAIPUR</small>
             </div>
           </a>
@@ -144,7 +144,7 @@ export default function Footer({ onSearchClick, onRequestQuoteClick, onOpenAdmin
       <div className="footerBottomBar">
         <div className="footerBottomContent">
           <p className="footerCopyright">
-            © {new Date().getFullYear()} Kaushal Refrigeration & Interrior. All rights reserved.
+            © {new Date().getFullYear()} Kaushal Refrigeration & Interior. All rights reserved.
           </p>
 
           <div className="footerCredits">
@@ -203,9 +203,9 @@ export default function Footer({ onSearchClick, onRequestQuoteClick, onOpenAdmin
               <span className="privacyBadge">
                 <ShieldCheck size={16} /> PRIVACY POLICY
               </span>
-              <h3>Kaushal Refrigeration & Interrior</h3>
+              <h3>Kaushal Refrigeration & Interior</h3>
               <p>
-                At Kaushal Refrigeration & Interrior, client confidentiality and project data integrity are central to our customer relationships.
+                At Kaushal Refrigeration & Interior, client confidentiality and project data integrity are central to our customer relationships.
               </p>
               <h4>1. Project Information & Inquiries</h4>
               <p>

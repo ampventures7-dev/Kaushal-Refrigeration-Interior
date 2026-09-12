@@ -306,7 +306,7 @@ export default function App() {
               <em>More impact.</em>
             </h2>
             <p>
-              With over 3 decades of manufacturing excellence in Jhotwara, Jaipur, Kaushal Refrigeration & Interrior builds commercial equipment that lets your products take centre stage. Clean lines, practical layouts and a premium food-grade finish — without unnecessary complexity.
+              With over 3 decades of manufacturing excellence in Jhotwara, Jaipur, Kaushal Refrigeration & Interior builds commercial equipment that lets your products take centre stage. Clean lines, practical layouts and a premium food-grade finish — without unnecessary complexity.
             </p>
             <div className="checks">
               <span>

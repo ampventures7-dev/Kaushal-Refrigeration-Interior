@@ -18,7 +18,7 @@ export default function Navbar({ isAdmin, onOpenAdmin, onLogout }) {
         >
           <span className="mark">KRI</span>
           <span>
-            <b>KAUSHAL REFRIGERATION & INTERRIOR</b>
+            <b>KAUSHAL REFRIGERATION & INTERIOR</b>
             <small>📍 JHOTWARA, JAIPUR, RAJASTHAN</small>
           </span>
         </a>

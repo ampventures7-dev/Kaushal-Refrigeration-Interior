@@ -84,7 +84,7 @@ export default function ExperienceCenter() {
       {/* Embedded Google Map (full width, below content) */}
       <div className="expCenterMapWrapper">
         <iframe
-          title="Kaushal Refrigeration & Interrior Manufacturing Unit Map"
+          title="Kaushal Refrigeration & Interior Manufacturing Unit Map"
           src="https://maps.google.com/maps?q=20A,+Jeen+Mata+Marg,+Satya+Nagar,+D.K.+Nagar,+Jhotwara,+Jaipur,+Rajasthan+302012&t=&z=15&ie=UTF8&iwloc=&output=embed"
           width="100%"
           height="420"
@@ -95,7 +95,7 @@ export default function ExperienceCenter() {
         />
         <div className="mapFloatingBadge">
           <MapPin size={16} />
-          <span>Kaushal Refrigeration & Interrior • 20A, Jeen Mata Marg, Satya Nagar, D.K. Nagar, Jhotwara, Jaipur</span>
+          <span>Kaushal Refrigeration & Interior • 20A, Jeen Mata Marg, Satya Nagar, D.K. Nagar, Jhotwara, Jaipur</span>
         </div>
       </div>
     </section>
