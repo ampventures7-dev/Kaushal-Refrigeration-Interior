@@ -150,11 +150,11 @@ export default function Footer({ onSearchClick, onRequestQuoteClick, onOpenAdmin
           <div className="footerCredits">
             <span>Designed & Developed by</span>
             <a
-              href="https://amp-ventures.vercel.app/"
+              href="https://www.instagram.com/amp_ventures?stkn=MTkyb2UyOWlsNXI4eA=="
               target="_blank"
               rel="noopener noreferrer"
               className="ampVenturesBadge"
-              title="Visit AMP Ventures Website"
+              title="Visit AMP Ventures on Instagram"
             >
               <span className="ampSparkle">✨</span> AMP Ventures ↗
             </a>
