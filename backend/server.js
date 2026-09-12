@@ -209,6 +209,19 @@ app.use(cookieParser());
 // Apply Global Rate Limiting across all /api routes
 app.use("/api", globalApiLimiter);
 
+// Root Welcome & Status Endpoint
+app.get("/", (req, res) => {
+  res.json({
+    name: "Kaushal Refrigeration & Interior API Server",
+    status: "online",
+    message: "Backend API is running securely.",
+    endpoints: {
+      health: "/api/health",
+      quotes: "/api/quotes"
+    }
+  });
+});
+
 // Health & CORS Verification Endpoint
 app.get("/api/health", (req, res) => {
   const clientOrigin = req.headers.origin || null;
