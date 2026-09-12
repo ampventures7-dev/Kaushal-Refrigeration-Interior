@@ -5,6 +5,7 @@ import ProductCard from "./components/ProductCard";
 import ProductModal from "./components/ProductModal";
 import GallerySection from "./components/GallerySection";
 import BlogSection from "./components/BlogSection";
+import FaqSection from "./components/FaqSection";
 import ContactHero from "./components/ContactHero";
 import RequirementsSection from "./components/RequirementsSection";
 import FacilitiesSection from "./components/FacilitiesSection";
@@ -17,17 +18,24 @@ import AdminModal from "./components/AdminModal";
 import { products, categories } from "./data";
 import { galleryItems as defaultGalleryItems } from "./data/galleryData";
 import { productImages as I } from "./assets/productImages";
+import { fetchGalleryItems, addGalleryItem, deleteGalleryItem } from "./services/galleryService";
+import { checkAdminAuth, logoutAdmin } from "./services/adminAuthService";
 
 export default function App() {
   const [cat, setCat] = useState("All");
   const [q, setQ] = useState("");
   const [selected, setSelected] = useState(null);
 
-  // Admin & Persistent Gallery State
-  const [isAdmin, setIsAdmin] = useState(() => {
-    return localStorage.getItem("kri_admin_active") === "true";
-  });
+  // Admin & Persistent Gallery State (Verified via HttpOnly Cookie Session)
+  const [isAdmin, setIsAdmin] = useState(false);
   const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
+
+  // Validate HttpOnly session cookie on mount
+  useEffect(() => {
+    checkAdminAuth().then(({ authenticated }) => {
+      setIsAdmin(authenticated);
+    });
+  }, []);
 
   const [galleryList, setGalleryList] = useState(() => {
     const saved = localStorage.getItem("kri_gallery_data");
@@ -63,27 +71,37 @@ export default function App() {
     return defaultGalleryItems;
   });
 
-  // Secret Admin Access Triggers: Keyboard shortcut (Ctrl + Shift + A) & URL hash (#admin)
+  // Load gallery items from Supabase on mount (with automatic fallback)
   useEffect(() => {
-    const handleKeyDown = (e) => {
-      if ((e.ctrlKey || e.altKey) && e.shiftKey && e.key.toLowerCase() === "a") {
-        e.preventDefault();
-        setIsAdminModalOpen(true);
+    let isMounted = true;
+    async function loadGallery() {
+      try {
+        const remoteItems = await fetchGalleryItems();
+        if (isMounted && remoteItems && remoteItems.length > 0) {
+          setGalleryList(remoteItems);
+        }
+      } catch (e) {
+        console.warn("Could not load remote gallery:", e);
       }
+    }
+    loadGallery();
+    return () => {
+      isMounted = false;
     };
+  }, []);
 
+  // Secret Admin Access Trigger: URL hash (#admin)
+  useEffect(() => {
     const handleHashCheck = () => {
       if (window.location.hash === "#admin") {
         setIsAdminModalOpen(true);
       }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("hashchange", handleHashCheck);
     handleHashCheck();
 
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("hashchange", handleHashCheck);
     };
   }, []);
@@ -93,12 +111,14 @@ export default function App() {
     localStorage.setItem("kri_gallery_data", JSON.stringify(newList));
   };
 
-  const handleAddGalleryItem = (newItem) => {
-    const updated = [newItem, ...galleryList];
+  const handleAddGalleryItem = async (newItem) => {
+    const saved = await addGalleryItem(newItem);
+    const updated = [saved || newItem, ...galleryList];
     saveGalleryToStorage(updated);
   };
 
-  const handleDeleteGalleryItem = (id) => {
+  const handleDeleteGalleryItem = async (id) => {
+    await deleteGalleryItem(id);
     const updated = galleryList.filter((item) => item.id !== id);
     saveGalleryToStorage(updated);
   };
@@ -112,12 +132,11 @@ export default function App() {
 
   const handleLoginSuccess = () => {
     setIsAdmin(true);
-    localStorage.setItem("kri_admin_active", "true");
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await logoutAdmin();
     setIsAdmin(false);
-    localStorage.removeItem("kri_admin_active");
     setIsAdminModalOpen(false);
   };
 
@@ -263,6 +282,9 @@ export default function App() {
         {/* BLOG SECTION */}
         <BlogSection />
 
+        {/* FAQ SECTION */}
+        <FaqSection />
+
         {/* CONTACT SECTION */}
         <section id="contact" className="contactPageSection">
           <ContactHero onHomeClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} />
@@ -346,6 +368,7 @@ export default function App() {
       <Footer
         onSearchClick={handleSearchClick}
         onRequestQuoteClick={handleRequestQuoteClick}
+        onOpenAdmin={() => setIsAdminModalOpen(true)}
       />
 
       <ProductModal p={selected} onClose={() => setSelected(null)} />

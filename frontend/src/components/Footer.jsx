@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { MapPin, Phone, Mail, Clock, ArrowUp, Instagram, ArrowRight, ShieldCheck, X } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, ArrowUp, Instagram, ArrowRight, ShieldCheck, X, Lock } from "lucide-react";
 import { WhatsAppIcon } from "./WhatsAppButton";
 
-export default function Footer({ onSearchClick, onRequestQuoteClick }) {
+export default function Footer({ onSearchClick, onRequestQuoteClick, onOpenAdmin }) {
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
 
   const handleSearchClick = (e) => {
@@ -86,6 +86,18 @@ export default function Footer({ onSearchClick, onRequestQuoteClick }) {
             <li>
               <a href="#about">About Us</a>
             </li>
+            <li>
+              <button
+                type="button"
+                className="footerQuickAdminBtn"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onOpenAdmin) onOpenAdmin();
+                }}
+              >
+                🔐 Admin Portal
+              </button>
+            </li>
           </ul>
         </div>
 
@@ -155,6 +167,18 @@ export default function Footer({ onSearchClick, onRequestQuoteClick }) {
               onClick={() => setShowPrivacyModal(true)}
             >
               Privacy Policy
+            </button>
+            <span className="footerDivider">•</span>
+            <button
+              type="button"
+              className="footerAdminLinkBtn"
+              onClick={(e) => {
+                e.preventDefault();
+                if (onOpenAdmin) onOpenAdmin();
+              }}
+              title="Open Admin Management Portal"
+            >
+              <Lock size={12} /> Admin Portal
             </button>
             <span className="footerDivider">•</span>
             <a href="#top" className="footerBackToTop">

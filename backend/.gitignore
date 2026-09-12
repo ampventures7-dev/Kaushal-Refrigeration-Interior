@@ -4,18 +4,11 @@ node_modules/
 # Environment Variables & Secrets (CRITICAL: NEVER COMMIT TO GIT)
 .env
 .env.*
-*.env
 !.env.example
-!*.env.example
-
-# Production builds
-dist/
-dist-ssr/
 
 # Logs
 *.log
 npm-debug.log*
-yarn-debug.log*
 
 # OS / Editor
 .DS_Store

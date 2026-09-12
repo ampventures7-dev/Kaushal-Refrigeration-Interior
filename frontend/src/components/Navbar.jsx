@@ -10,14 +10,10 @@ export default function Navbar({ isAdmin, onOpenAdmin, onLogout }) {
   return (
     <>
       <header className="nav">
-        {/* Secret Double-Click Trigger on KRI Mark */}
+        {/* Brand link */}
         <a
           className="brand"
           href="#top"
-          onDoubleClick={(e) => {
-            e.preventDefault();
-            onOpenAdmin();
-          }}
           title="Kaushal Refrigeration & Interior"
         >
           <span className="mark">KRI</span>
@@ -33,6 +29,7 @@ export default function Navbar({ isAdmin, onOpenAdmin, onLogout }) {
           <a href="#products">Products</a>
           <a href="#gallery">Gallery</a>
           <a href="#blog">Blog</a>
+          <a href="#faq">FAQ</a>
           <a href="#contact">Contact</a>
           <a href="#about">About</a>
         </nav>
@@ -86,14 +83,7 @@ export default function Navbar({ isAdmin, onOpenAdmin, onLogout }) {
         <div className="mobileDrawerOverlay" onClick={closeMenu}>
           <div className="mobileDrawer" onClick={(e) => e.stopPropagation()}>
             <div className="mobileDrawerHeader">
-              <div
-                className="mobileBrand"
-                onDoubleClick={(e) => {
-                  e.preventDefault();
-                  closeMenu();
-                  onOpenAdmin();
-                }}
-              >
+              <div className="mobileBrand">
                 <span className="mark">KRI</span>
                 <div>
                   <b>KAUSHAL REFRIGERATION</b>
@@ -122,6 +112,9 @@ export default function Navbar({ isAdmin, onOpenAdmin, onLogout }) {
               </a>
               <a href="#blog" onClick={closeMenu}>
                 📝 News & Articles
+              </a>
+              <a href="#faq" onClick={closeMenu}>
+                ❓ FAQs & Buyer Guide
               </a>
               <a href="#contact" onClick={closeMenu}>
                 📞 Contact & Location

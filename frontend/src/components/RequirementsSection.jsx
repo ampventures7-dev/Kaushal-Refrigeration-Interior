@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { WhatsAppIcon } from "./WhatsAppButton";
 import { productImages as I } from "../assets/productImages";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, AlertCircle, ShieldCheck } from "lucide-react";
+import { submitQuote } from "../services/quoteService";
 
 export default function RequirementsSection() {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [honeypot, setHoneypot] = useState("");
+  const formStartTime = useRef(Date.now());
+
   const [formData, setFormData] = useState({
     name: "",
     company: "",
@@ -18,9 +24,33 @@ export default function RequirementsSection() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    setErrorMessage("");
+    setLoading(true);
+
+    try {
+      const res = await submitQuote({
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        requirement: formData.requirement,
+        notes: `Company: ${formData.company ? formData.company.trim() : "N/A"} | Notes: ${formData.message ? formData.message.trim() : "None"}`,
+        honeypot,
+        formStartTime: formStartTime.current
+      });
+
+      if (res.success) {
+        setSubmitted(true);
+      } else {
+        setErrorMessage(res.error || "Could not submit inquiry. Please reach out via WhatsApp.");
+      }
+    } catch (err) {
+      console.error("Submission error:", err);
+      setErrorMessage("An unexpected error occurred. Please contact us on WhatsApp.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -107,6 +137,49 @@ export default function RequirementsSection() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="reqForm">
+              {errorMessage && (
+                <div style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  background: "#fee2e2",
+                  color: "#b91c1c",
+                  padding: "12px 16px",
+                  borderRadius: "8px",
+                  marginBottom: "20px",
+                  fontSize: "14px",
+                  border: "1px solid #f87171"
+                }}>
+                  <AlertCircle size={18} style={{ flexShrink: 0 }} />
+                  <span>{errorMessage}</span>
+                </div>
+              )}
+
+              {/* Anti-Bot Honeypot Field (hidden from humans, trapped by spam bots) */}
+              <div
+                style={{
+                  position: "absolute",
+                  left: "-9999px",
+                  top: "-9999px",
+                  opacity: 0,
+                  height: 0,
+                  width: 0,
+                  overflow: "hidden"
+                }}
+                aria-hidden="true"
+              >
+                <label htmlFor="req-website-pot">Leave this field empty</label>
+                <input
+                  id="req-website-pot"
+                  type="text"
+                  name="website_pot"
+                  tabIndex="-1"
+                  autoComplete="off"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                />
+              </div>
+
               {/* Form fields in 2-column grid on desktop, single column on mobile */}
               <div className="reqFormGrid">
                 {/* 1. Name */}
@@ -214,8 +287,13 @@ export default function RequirementsSection() {
               </div>
 
               {/* Submit button: Send Enquiry */}
-              <button type="submit" className="primary reqSubmitBtn">
-                Send Enquiry ↗
+              <button
+                type="submit"
+                className="primary reqSubmitBtn"
+                disabled={loading}
+                style={{ opacity: loading ? 0.7 : 1, cursor: loading ? "not-allowed" : "pointer" }}
+              >
+                {loading ? "Sending Enquiry..." : "Send Enquiry ↗"}
               </button>
 
               {/* Below form: small note "Need a quotation quickly?" with WhatsApp button */}
