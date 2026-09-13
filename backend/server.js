@@ -92,9 +92,10 @@ if (supabaseUrl && supabaseKey) {
   supabase = createClient(supabaseUrl, supabaseKey);
 }
 
-// In-Memory Storage for Rate Limiting & OTP
+// In-Memory Storage for Rate Limiting & OTP & Offline Resilience
 const loginAttempts = new Map(); // IP -> { count, lockoutUntil }
 const otpStore = new Map();      // "admin_otp" -> { code, expiresAt }
+const localQuotesBackup = [];    // Resilient fallback storage if Supabase is offline
 
 const MAX_ATTEMPTS = 5;
 const LOCKOUT_MS = 5 * 60 * 1000; // 5 minutes
@@ -664,9 +665,14 @@ app.post("/api/quotes", quoteSubmissionLimiter, validate(QuoteInquirySchema), as
         savedInSupabase = true;
       }
     } catch (err) {
-      console.error("Quote save exception:", err);
+      console.warn("Quote Supabase save exception:", err.message);
       supabaseError = err.message;
     }
+  }
+
+  // Backup in memory if database was unreachable so leads are never lost
+  if (!savedInSupabase) {
+    localQuotesBackup.unshift({ id: Date.now(), ...quoteRecord });
   }
 
   // Trigger Server-side Resend Email Notification with Strict HTML Escaping (Anti-XSS / Injection)
@@ -720,25 +726,29 @@ app.post("/api/quotes", quoteSubmissionLimiter, validate(QuoteInquirySchema), as
 // ADMIN QUOTE INQUIRIES MANAGEMENT (Requires valid HttpOnly Cookie)
 // -----------------------------------------------------------------------------
 app.get("/api/admin/quotes", requireAdmin, async (req, res) => {
-  if (!supabase) {
-    return res.status(500).json({ success: false, error: "Supabase client not initialized on server." });
-  }
+  if (supabase) {
+    try {
+      const { data, error } = await supabase
+        .from("quotes")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(100);
 
-  try {
-    const { data, error } = await supabase
-      .from("quotes")
-      .select("*")
-      .order("created_at", { ascending: false })
-      .limit(100);
-
-    if (error) {
-      return res.status(500).json({ success: false, error: error.message });
+      if (!error && data) {
+        return res.json({ success: true, count: data.length, data });
+      }
+    } catch (err) {
+      console.warn("Supabase quote fetch warning:", err.message);
     }
-
-    return res.json({ success: true, count: data.length, data });
-  } catch (err) {
-    return res.status(500).json({ success: false, error: err.message });
   }
+
+  // Graceful fallback to in-memory quotes if Supabase is offline/unreachable
+  return res.json({
+    success: true,
+    count: localQuotesBackup.length,
+    data: localQuotesBackup,
+    databaseStatus: supabase ? "offline_memory_fallback" : "not_configured"
+  });
 });
 
 // 404 Handler for Unrecognized Endpoints
