@@ -2,91 +2,10 @@ import { supabase, isSupabaseConfigured } from "../lib/supabaseClient";
 import { API_BASE_URL } from "./apiConfig";
 
 /**
- * Sends an email notification using Resend REST API
+ * Lead Inquiry & Quotation Service
+ * Submissions are processed securely via the backend API (/api/quotes),
+ * ensuring email dispatch credentials (Resend) are never exposed to the client.
  */
-async function sendResendNotification({ name, phone, email, requirement, notes }) {
-  const apiKey = import.meta.env.VITE_RESEND_API_KEY;
-  const ownerEmail = import.meta.env.VITE_OWNER_EMAIL || "kaushalrefrigeration.inquiry@gmail.com";
-
-  if (!apiKey || apiKey.includes("your_resend_api_key")) {
-    console.warn("⚠️ Resend API Key is not set in .env. Skipping email notification.");
-    return { skipped: true, reason: "No API key configured" };
-  }
-
-  const htmlContent = `
-    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
-      <div style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); padding: 20px; border-radius: 8px; text-align: center; color: #ffffff;">
-        <h1 style="margin: 0; font-size: 22px; font-weight: 700; letter-spacing: 0.5px;">Kaushal Refrigeration & Interior</h1>
-        <p style="margin: 6px 0 0 0; font-size: 14px; opacity: 0.9;">New Commercial Inquiry / Quotation Request</p>
-      </div>
-
-      <div style="padding: 24px 8px;">
-        <h2 style="color: #0f172a; font-size: 18px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; margin-top: 0;">Customer Details</h2>
-        <table style="width: 100%; border-collapse: collapse; margin-top: 12px;">
-          <tr>
-            <td style="padding: 8px 0; color: #64748b; font-weight: 600; width: 35%;">Client Name:</td>
-            <td style="padding: 8px 0; color: #0f172a; font-weight: 700;">${name}</td>
-          </tr>
-          <tr>
-            <td style="padding: 8px 0; color: #64748b; font-weight: 600;">Phone Number:</td>
-            <td style="padding: 8px 0; color: #0284c7; font-weight: 700;"><a href="tel:${phone}" style="color: #0284c7; text-decoration: none;">${phone}</a></td>
-          </tr>
-          <tr>
-            <td style="padding: 8px 0; color: #64748b; font-weight: 600;">Email:</td>
-            <td style="padding: 8px 0; color: #0f172a;">${email || "Not provided"}</td>
-          </tr>
-          <tr>
-            <td style="padding: 8px 0; color: #64748b; font-weight: 600;">Requirement:</td>
-            <td style="padding: 8px 0; color: #0f172a; font-weight: 700;"><span style="background: #e0f2fe; color: #0369a1; padding: 4px 10px; border-radius: 9999px; font-size: 13px;">${requirement}</span></td>
-          </tr>
-        </table>
-
-        ${notes ? `
-          <div style="margin-top: 20px; background-color: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #0284c7;">
-            <p style="margin: 0 0 6px 0; font-size: 12px; font-weight: 700; color: #64748b; text-transform: uppercase;">Requirement Details / Message:</p>
-            <p style="margin: 0; color: #334155; font-size: 14px; line-height: 1.5;">${notes}</p>
-          </div>
-        ` : ""}
-
-        <div style="margin-top: 28px; text-align: center;">
-          <a href="https://wa.me/91${phone.replace(/[^0-9]/g, "")}" style="display: inline-block; background-color: #25D366; color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 14px;">Chat with Customer on WhatsApp</a>
-        </div>
-      </div>
-
-      <div style="border-top: 1px solid #f1f5f9; padding-top: 16px; text-align: center; color: #94a3b8; font-size: 12px;">
-        Sent via Kaushal Refrigeration & Interior Website Lead Management System
-      </div>
-    </div>
-  `;
-
-  try {
-    const res = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${apiKey}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        from: "Kaushal Refrigeration Leads <onboarding@resend.dev>",
-        to: [ownerEmail],
-        subject: `New Lead: ${requirement || "Display Counter"} inquiry from ${name}`,
-        html: htmlContent
-      })
-    });
-
-    if (!res.ok) {
-      const errData = await res.json().catch(() => ({}));
-      console.warn("Resend API warning:", errData);
-      return { success: false, error: errData };
-    }
-
-    const data = await res.json();
-    return { success: true, data };
-  } catch (err) {
-    console.error("Failed to send email via Resend:", err);
-    return { success: false, error: err.message };
-  }
-}
 
 /**
  * Rate Limiting & Bot Protection Configuration
@@ -219,7 +138,7 @@ export async function submitQuote({ name, phone, email, requirement, notes, hone
   // 6. Record submission in local rate limiter
   recordSubmission();
 
-  // 7. Try Server Endpoint (Validated on backend with Zod schema)
+  // 7. Process submission via Backend API (Server handles database storage + secure Resend email alert)
   try {
     const apiRes = await fetch(`${API_BASE_URL}/api/quotes`, {
       method: "POST",
@@ -233,18 +152,31 @@ export async function submitQuote({ name, phone, email, requirement, notes, hone
       })
     });
 
-    if (apiRes.ok) {
-      const apiData = await apiRes.json();
-      if (apiData.savedInSupabase) {
-        savedInSupabase = true;
-      }
+    const apiData = await apiRes.json().catch(() => ({}));
+
+    if (!apiRes.ok) {
+      // Return server-side rate limit (429) or validation error (400) directly to user
+      return {
+        success: false,
+        error: apiData.error || "Inquiry could not be processed. Please try again or WhatsApp us."
+      };
     }
+
+    if (apiData.savedInSupabase) {
+      savedInSupabase = true;
+    }
+
+    return {
+      success: true,
+      savedInSupabase: true,
+      data: apiData.data || quoteRecord
+    };
   } catch (err) {
-    console.warn("Backend quote API unavailable, using direct Supabase fallback:", err);
+    console.warn("Backend API temporarily unavailable, engaging offline/direct fallback:", err);
   }
 
-  // 8. Direct Supabase fallback if not already saved by server
-  if (!savedInSupabase && isSupabaseConfigured()) {
+  // 8. Direct Supabase fallback if backend server is unreachable
+  if (isSupabaseConfigured()) {
     try {
       const { data, error } = await supabase
         .from("quotes")
@@ -261,17 +193,12 @@ export async function submitQuote({ name, phone, email, requirement, notes, hone
       console.error("Supabase connection exception:", e);
       supabaseError = e.message;
     }
-  } else if (!savedInSupabase) {
-    console.info("Supabase not configured yet. Saving to local state fallback.");
+  } else {
+    console.info("Saving to local offline state fallback.");
     const existing = JSON.parse(localStorage.getItem("kri_local_quotes") || "[]");
     existing.unshift({ id: Date.now(), ...quoteRecord });
     localStorage.setItem("kri_local_quotes", JSON.stringify(existing));
   }
-
-  // 8. Trigger Resend Notification
-  sendResendNotification(quoteRecord).catch((err) => {
-    console.warn("Resend notification background error:", err);
-  });
 
   return {
     success: true,

@@ -29,12 +29,12 @@ ON public.quotes
 FOR INSERT 
 WITH CHECK (true);
 
--- Allow authenticated admins or anon reads
+-- Restrict reading quotes strictly to authenticated backend service role (Protects customer privacy)
 DROP POLICY IF EXISTS "Allow read on quotes" ON public.quotes;
 CREATE POLICY "Allow read on quotes" 
 ON public.quotes 
 FOR SELECT 
-USING (true);
+USING (auth.role() = 'service_role');
 
 
 -- 2. Create 'gallery_items' table for dynamic photos & products
@@ -94,8 +94,8 @@ CREATE POLICY "Allow uploads to gallery-images"
 ON storage.objects FOR INSERT
 WITH CHECK (bucket_id = 'gallery-images');
 
--- Allow image deletions from gallery-images
+-- Restrict image deletions from gallery-images to service role only
 DROP POLICY IF EXISTS "Allow deletion from gallery-images" ON storage.objects;
 CREATE POLICY "Allow deletion from gallery-images"
 ON storage.objects FOR DELETE
-USING (bucket_id = 'gallery-images');
+USING (bucket_id = 'gallery-images' AND auth.role() = 'service_role');

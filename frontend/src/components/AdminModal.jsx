@@ -188,7 +188,7 @@ export default function AdminModal({
     setPreviewSrc(val);
   };
 
-  const handleAddSubmit = (e) => {
+  const handleAddSubmit = async (e) => {
     e.preventDefault();
     if (!title.trim() || !src) {
       alert("Please provide a Title and an Image URL or Upload a Photo.");
@@ -212,7 +212,7 @@ export default function AdminModal({
       specs: specsArray.length > 0 ? specsArray : ["Custom Built", "SS 304 Steel"]
     };
 
-    onAddGalleryItem(newItem);
+    await onAddGalleryItem(newItem);
     setAddSuccessMsg("✅ New photo added to gallery successfully!");
 
     // Reset Form

@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
+import crypto from "crypto";
 
 dotenv.config();
 
@@ -17,12 +18,13 @@ app.set("trust proxy", 1);
 // Hide server tech stack from scanners
 app.disable("x-powered-by");
 
-// Core HTTP Security Headers (HSTS, Anti-Clickjacking, Sniffing Protection)
+// Core HTTP Security Headers (HSTS, Anti-Clickjacking, Sniffing Protection, Permissions-Policy)
 app.use((req, res, next) => {
   res.setHeader("X-Content-Type-Options", "nosniff");
   res.setHeader("X-Frame-Options", "DENY");
   res.setHeader("X-XSS-Protection", "1; mode=block");
   res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+  res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
   if (process.env.NODE_ENV === "production") {
     res.setHeader("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
   }
@@ -30,8 +32,47 @@ app.use((req, res, next) => {
 });
 
 const PORT = process.env.PORT || 5000;
-const JWT_SECRET = process.env.JWT_SECRET || "kri_default_dev_jwt_secret_9829196508";
 const isProduction = process.env.NODE_ENV === "production";
+
+// Enforce strong JWT Secret in production
+const DEFAULT_DEV_JWT_SECRET = "kri_default_dev_jwt_secret_9829196508";
+let JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+  if (isProduction) {
+    console.error("FATAL: JWT_SECRET environment variable is missing in production!");
+    process.exit(1);
+  } else {
+    JWT_SECRET = DEFAULT_DEV_JWT_SECRET;
+  }
+}
+
+/**
+ * Escapes HTML characters to prevent HTML injection and XSS in emails and logs
+ */
+function escapeHtml(str) {
+  if (!str) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+/**
+ * Constant-time safe string comparison to prevent timing attacks on passwords
+ */
+function timingSafeEqual(a, b) {
+  if (typeof a !== "string" || typeof b !== "string") return false;
+  const bufA = Buffer.from(a);
+  const bufB = Buffer.from(b);
+  if (bufA.length !== bufB.length) {
+    // Run dummy timing-safe comparison to prevent length leak timing attacks
+    crypto.timingSafeEqual(bufA, bufA);
+    return false;
+  }
+  return crypto.timingSafeEqual(bufA, bufB);
+}
 
 const COOKIE_NAME = "kri_session";
 const COOKIE_OPTIONS = {
@@ -153,7 +194,7 @@ function createRateLimiter({ windowMs, max, message }) {
   }, 5 * 60 * 1000).unref();
 
   return (req, res, next) => {
-    const ip = req.ip || req.connection.remoteAddress || "unknown_ip";
+    const ip = req.ip || req.socket?.remoteAddress || "unknown_ip";
     const now = Date.now();
     const record = hits.get(ip) || { count: 0, resetTime: now + windowMs };
 
@@ -198,6 +239,13 @@ const otpEmailLimiter = createRateLimiter({
   windowMs: 15 * 60 * 1000,
   max: 3,
   message: "Too many recovery code requests. Please wait 15 minutes before requesting another OTP."
+});
+
+// 3. Strict Quote Submission Limiter: Max 5 submissions per 15 minutes per IP (Protects lead mailbox and Resend quota)
+const quoteSubmissionLimiter = createRateLimiter({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  message: "You have reached the maximum inquiry submission limit. Please contact us directly on WhatsApp (+91 98291 96508) or try again in a few minutes."
 });
 
 // Middleware
@@ -329,7 +377,7 @@ function validate(schema, source = "body") {
 
 // 1. Admin Login (Validated with LoginSchema & Sets HttpOnly Cookie on success)
 app.post("/api/admin/login", validate(LoginSchema), (req, res) => {
-  const ip = req.ip || req.connection.remoteAddress || "unknown_ip";
+  const ip = req.ip || req.socket?.remoteAddress || "unknown_ip";
   const now = Date.now();
 
   const userAttempts = loginAttempts.get(ip) || { count: 0, lockoutUntil: 0 };
@@ -348,7 +396,11 @@ app.post("/api/admin/login", validate(LoginSchema), (req, res) => {
   const expectedUser = (process.env.ADMIN_USER || "admin").trim().toLowerCase();
   const expectedPass = process.env.ADMIN_PASS || "admin123";
 
-  if (username && username.trim().toLowerCase() === expectedUser && password === expectedPass) {
+  // Timing-safe credential validation to prevent timing attacks
+  const usernameMatch = username && username.trim().toLowerCase() === expectedUser;
+  const passwordMatch = timingSafeEqual(password, expectedPass);
+
+  if (usernameMatch && passwordMatch) {
     // Reset failed attempts on success
     loginAttempts.delete(ip);
 
@@ -492,13 +544,13 @@ app.post("/api/admin/verify-otp", validate(VerifyOtpSchema), (req, res) => {
     return res.status(400).json({ success: false, error: "OTP expired. Please request a new one." });
   }
 
-  if (stored.code !== code) {
+  if (!timingSafeEqual(stored.code, code)) {
     return res.status(400).json({ success: false, error: "Incorrect 6-digit recovery code." });
   }
 
   // Success: Clear OTP and reset IP lockout
   otpStore.delete("admin_otp");
-  const ip = req.ip || req.connection.remoteAddress || "unknown_ip";
+  const ip = req.ip || req.socket?.remoteAddress || "unknown_ip";
   loginAttempts.delete(ip);
 
   // Set secure HttpOnly cookie
@@ -580,9 +632,9 @@ app.delete("/api/admin/gallery/:id", requireAdmin, validate(GalleryIdParamSchema
 });
 
 // -----------------------------------------------------------------------------
-// PUBLIC QUOTE INQUIRIES (Server-Side Validated with QuoteInquirySchema)
+// PUBLIC QUOTE INQUIRIES (Protected with Dedicated Rate Limiting & Validation)
 // -----------------------------------------------------------------------------
-app.post("/api/quotes", validate(QuoteInquirySchema), async (req, res) => {
+app.post("/api/quotes", quoteSubmissionLimiter, validate(QuoteInquirySchema), async (req, res) => {
   const { name, phone, email, requirement, notes } = req.body;
 
   const quoteRecord = {
@@ -617,10 +669,16 @@ app.post("/api/quotes", validate(QuoteInquirySchema), async (req, res) => {
     }
   }
 
-  // Trigger Server-side Resend Email Notification (non-blocking)
+  // Trigger Server-side Resend Email Notification with Strict HTML Escaping (Anti-XSS / Injection)
   const resendApiKey = process.env.RESEND_API_KEY;
   const ownerEmail = process.env.OWNER_EMAIL || "autarram528@Gmail.com";
   if (resendApiKey && !resendApiKey.includes("your_resend_api_key")) {
+    const safeName = escapeHtml(name);
+    const safePhone = escapeHtml(phone);
+    const safeEmail = email ? escapeHtml(email) : "Not provided";
+    const safeReq = escapeHtml(requirement || "Display Counter");
+    const safeNotes = notes ? escapeHtml(notes) : "None";
+
     try {
       fetch("https://api.resend.com/emails", {
         method: "POST",
@@ -631,15 +689,15 @@ app.post("/api/quotes", validate(QuoteInquirySchema), async (req, res) => {
         body: JSON.stringify({
           from: "Kaushal Refrigeration Leads <onboarding@resend.dev>",
           to: [ownerEmail],
-          subject: `New Lead: ${requirement || "Display Counter"} inquiry from ${name}`,
+          subject: `New Lead: ${safeReq} inquiry from ${safeName}`,
           html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 10px; background: #ffffff;">
               <h2 style="color: #0284c7; margin-top: 0;">New Commercial Lead Received</h2>
-              <p style="margin: 6px 0;"><b>Client Name:</b> ${name}</p>
-              <p style="margin: 6px 0;"><b>Phone:</b> <a href="tel:${phone}" style="color: #0284c7;">${phone}</a></p>
-              <p style="margin: 6px 0;"><b>Email:</b> ${email || "Not provided"}</p>
-              <p style="margin: 6px 0;"><b>Requirement:</b> <span style="background: #e0f2fe; padding: 3px 8px; border-radius: 4px;">${requirement}</span></p>
-              <p style="margin: 12px 0 0 0;"><b>Notes/Message:</b> ${notes || "None"}</p>
+              <p style="margin: 6px 0;"><b>Client Name:</b> ${safeName}</p>
+              <p style="margin: 6px 0;"><b>Phone:</b> <a href="tel:${safePhone}" style="color: #0284c7;">${safePhone}</a></p>
+              <p style="margin: 6px 0;"><b>Email:</b> ${safeEmail}</p>
+              <p style="margin: 6px 0;"><b>Requirement:</b> <span style="background: #e0f2fe; padding: 3px 8px; border-radius: 4px;">${safeReq}</span></p>
+              <p style="margin: 12px 0 0 0;"><b>Notes/Message:</b> ${safeNotes}</p>
             </div>
           `
         })
@@ -681,6 +739,31 @@ app.get("/api/admin/quotes", requireAdmin, async (req, res) => {
   } catch (err) {
     return res.status(500).json({ success: false, error: err.message });
   }
+});
+
+// 404 Handler for Unrecognized Endpoints
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    error: `Endpoint not found: ${req.method} ${req.originalUrl || req.url}`
+  });
+});
+
+// Centralized Express Error Handler (Prevents stack trace leaks)
+app.use((err, req, res, next) => {
+  console.error("⚠️ [Internal Error]", err.stack || err);
+
+  if (err instanceof SyntaxError && err.status === 400 && "body" in err) {
+    return res.status(400).json({
+      success: false,
+      error: "Malformed JSON payload in request body."
+    });
+  }
+
+  return res.status(500).json({
+    success: false,
+    error: isProduction ? "An unexpected server error occurred." : (err.message || "Internal server error")
+  });
 });
 
 const server = app.listen(PORT, () => {

@@ -134,6 +134,10 @@ export default function GallerySection({ items, isAdmin, onDeleteItem, onOpenAdm
                       src={item.src}
                       alt={item.title}
                       loading="lazy"
+                      onError={(e) => {
+                        e.currentTarget.onerror = null;
+                        e.currentTarget.src = "/gallery/1000201979.jpg";
+                      }}
                     />
                   )}
 
@@ -213,7 +217,14 @@ export default function GallerySection({ items, isAdmin, onDeleteItem, onOpenAdm
                   className="galleryModalVideo"
                 />
               ) : (
-                <img src={activeItem.src} alt={activeItem.title} />
+                <img
+                  src={activeItem.src}
+                  alt={activeItem.title}
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = "/gallery/1000201979.jpg";
+                  }}
+                />
               )}
               <div className="galleryModalTag">{activeItem.location}</div>
             </div>
