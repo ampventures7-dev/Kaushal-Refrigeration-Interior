@@ -653,13 +653,12 @@ app.post("/api/quotes", quoteSubmissionLimiter, validate(QuoteInquirySchema), as
 
   if (supabase) {
     try {
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from("quotes")
-        .insert([quoteRecord])
-        .select();
+        .insert([quoteRecord]);
 
       if (error) {
-        console.error("Supabase quote insert error:", error);
+        console.warn("Supabase quote insert error:", error.message);
         supabaseError = error.message;
       } else {
         savedInSupabase = true;

@@ -178,13 +178,12 @@ export async function submitQuote({ name, phone, email, requirement, notes, hone
   // 8. Direct Supabase fallback if backend server is unreachable
   if (isSupabaseConfigured()) {
     try {
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from("quotes")
-        .insert([quoteRecord])
-        .select();
+        .insert([quoteRecord]);
 
       if (error) {
-        console.error("Supabase insert error:", error);
+        console.warn("Supabase insert error:", error);
         supabaseError = error.message;
       } else {
         savedInSupabase = true;
