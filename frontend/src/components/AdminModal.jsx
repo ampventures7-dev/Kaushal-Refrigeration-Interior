@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { X, Lock, ShieldCheck, PlusCircle, Trash2, LogOut, Image, RefreshCw, CheckCircle2, AlertCircle, Loader2, Clock, ShieldAlert, KeyRound, MailCheck, ArrowLeft } from "lucide-react";
+import { X, Lock, ShieldCheck, PlusCircle, Trash2, LogOut, Image, RefreshCw, CheckCircle2, AlertCircle, Loader2, Clock, ShieldAlert, KeyRound, MailCheck, ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { uploadGalleryImage } from "../services/galleryService";
 import { loginAdmin, sendAdminRecoveryOtp, verifyAdminRecoveryOtp } from "../services/adminAuthService";
 
@@ -38,6 +38,7 @@ export default function AdminModal({
 }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState("");
   const [activeTab, setActiveTab] = useState("add"); // "add" | "manage"
 
@@ -285,14 +286,40 @@ export default function AdminModal({
 
               <div className="adminField">
                 <label>Password</label>
-                <input
-                  type="password"
-                  placeholder="Enter password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  disabled={lockoutSeconds > 0}
-                  required
-                />
+                <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Enter password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    disabled={lockoutSeconds > 0}
+                    required
+                    style={{ width: "100%", paddingRight: "42px" }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    tabIndex={-1}
+                    title={showPassword ? "Hide password" : "Show password"}
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    style={{
+                      position: "absolute",
+                      right: "10px",
+                      background: "transparent",
+                      border: "none",
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "#6b7280",
+                      padding: "6px",
+                      borderRadius: "6px",
+                      outline: "none"
+                    }}
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
               </div>
 
               {/* Forgot password trigger */}

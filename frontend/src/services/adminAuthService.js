@@ -3,7 +3,31 @@ import { API_BASE_URL } from "./apiConfig";
 /**
  * Admin Authentication & OTP Recovery Service
  * Communicates with backend using HTTP-Only, Secure Cookies (immune to XSS)
+ * Includes resilient dual-connection fallback for local development (Vite proxy -> direct 127.0.0.1:5000)
  */
+
+async function authFetch(endpoint, options = {}) {
+  const primaryUrl = `${API_BASE_URL}${endpoint}`;
+  try {
+    return await fetch(primaryUrl, options);
+  } catch (err) {
+    // If running on localhost / 127.0.0.1 and relative path failed to reach backend via proxy,
+    // automatically attempt direct connection to backend port 5000.
+    if (
+      typeof window !== "undefined" &&
+      !API_BASE_URL &&
+      (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
+    ) {
+      try {
+        console.warn(`[Auth Notice] Retrying ${endpoint} directly via http://127.0.0.1:5000...`);
+        return await fetch(`http://127.0.0.1:5000${endpoint}`, options);
+      } catch (fallbackErr) {
+        throw err;
+      }
+    }
+    throw err;
+  }
+}
 
 /**
  * Log in as Admin via server endpoint
@@ -11,7 +35,7 @@ import { API_BASE_URL } from "./apiConfig";
  */
 export async function loginAdmin(username, password) {
   try {
-    const res = await fetch(`${API_BASE_URL}/api/admin/login`, {
+    const res = await authFetch("/api/admin/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -26,7 +50,7 @@ export async function loginAdmin(username, password) {
     } catch (parseErr) {
       return {
         success: false,
-        error: `Authentication server returned status ${res.status} (${res.statusText || "non-JSON"}). Ensure backend is running on port 5000.`
+        error: `Authentication server returned status ${res.status} (${res.statusText || "non-JSON"}). Ensure backend is active on port 5000.`
       };
     }
 
@@ -58,7 +82,7 @@ export async function loginAdmin(username, password) {
  */
 export async function checkAdminAuth() {
   try {
-    const res = await fetch(`${API_BASE_URL}/api/admin/check-auth`, {
+    const res = await authFetch("/api/admin/check-auth", {
       method: "GET",
       credentials: "include" // Sends HttpOnly cookie to server for validation
     });
@@ -83,7 +107,7 @@ export async function checkAdminAuth() {
  */
 export async function logoutAdmin() {
   try {
-    const res = await fetch(`${API_BASE_URL}/api/admin/logout`, {
+    const res = await authFetch("/api/admin/logout", {
       method: "POST",
       credentials: "include"
     });
@@ -99,7 +123,7 @@ export async function logoutAdmin() {
  */
 export async function sendAdminRecoveryOtp() {
   try {
-    const res = await fetch(`${API_BASE_URL}/api/admin/send-otp`, {
+    const res = await authFetch("/api/admin/send-otp", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -134,7 +158,7 @@ export async function sendAdminRecoveryOtp() {
  */
 export async function verifyAdminRecoveryOtp(code) {
   try {
-    const res = await fetch(`${API_BASE_URL}/api/admin/verify-otp`, {
+    const res = await authFetch("/api/admin/verify-otp", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
