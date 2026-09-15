@@ -278,7 +278,7 @@ export default function AdminModal({
                   type="text"
                   placeholder="Enter username (admin)"
                   value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  onChange={(e) => { setUsername(e.target.value); if (loginError) setLoginError(""); }}
                   disabled={lockoutSeconds > 0}
                   required
                 />
@@ -291,7 +291,7 @@ export default function AdminModal({
                     type={showPassword ? "text" : "password"}
                     placeholder="Enter password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => { setPassword(e.target.value); if (loginError) setLoginError(""); }}
                     disabled={lockoutSeconds > 0}
                     required
                     style={{ width: "100%", paddingRight: "42px" }}
