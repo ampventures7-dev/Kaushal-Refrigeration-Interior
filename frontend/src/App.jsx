@@ -299,14 +299,16 @@ export default function App() {
             <img src={I.showcase} alt="Kaushal Refrigeration Factory Showcase" />
           </div>
           <div className="darkCopy">
-            <p className="eyebrow">ABOUT US — 30+ YEARS LEGACY</p>
+            <p className="eyebrow">OUR STORY &amp; CRAFTSMANSHIP</p>
             <h2>
-              Less clutter.
-              <br />
-              <em>More impact.</em>
+              Three decades of<br />
+              <em>precision engineering.</em>
             </h2>
             <p>
-              With over 3 decades of manufacturing excellence in Jhotwara, Jaipur, Kaushal Refrigeration & Interior builds commercial equipment that lets your products take centre stage. Clean lines, practical layouts and a premium food-grade finish — without unnecessary complexity.
+              Kaushal Refrigeration &amp; Interior was built on a foundation of real-world workshop mastery. Following a 20-year tenure mastering heavy-duty fabrication and cooling systems at Vijay Udhyog Pvt. Ltd., our founder set out to create a dedicated manufacturing unit tailored to commercial needs. For the past 15+ years, our factory has continuously engineered custom cooling solutions trusted by businesses across the region.
+            </p>
+            <p>
+              Today, we bring that combined 35+ years of practical know-how to every build—delivering clean lines, food-grade materials, and long-lasting commercial reliability.
             </p>
             <div className="checks">
               <span>

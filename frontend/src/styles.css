@@ -739,6 +739,7 @@ h2 em {
 .darkCopy p {
   color: #b5c7bd;
   line-height: 1.8;
+  margin-bottom: 16px;
 }
 
 .checks {
