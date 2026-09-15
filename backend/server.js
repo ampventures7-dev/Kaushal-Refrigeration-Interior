@@ -97,6 +97,10 @@ const LOCKOUT_MS = 5 * 60 * 1000; // 5 minutes
 
 // Production-Grade CORS Origin Configuration
 const defaultAllowedOrigins = [
+  "https://kaushalrefrigeration.com",
+  "https://www.kaushalrefrigeration.com",
+  "https://*.vercel.app",
+  "https://*.netlify.app",
   "http://localhost:5174",
   "http://localhost:5173",
   "http://localhost:3000",
@@ -247,6 +251,15 @@ const quoteSubmissionLimiter = createRateLimiter({
 // Middleware
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions)); // Handle preflight OPTIONS requests across all routes
+
+// Ensure preflight OPTIONS requests are answered with 204 No Content
+app.use((req, res, next) => {
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(204);
+  }
+  next();
+});
+
 app.use(express.json());
 app.use(cookieParser());
 
