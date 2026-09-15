@@ -20,7 +20,15 @@ export async function loginAdmin(username, password) {
       body: JSON.stringify({ username, password })
     });
 
-    const data = await res.json();
+    let data;
+    try {
+      data = await res.json();
+    } catch (parseErr) {
+      return {
+        success: false,
+        error: `Authentication server returned status ${res.status} (${res.statusText || "non-JSON"}). Ensure backend is running on port 5000.`
+      };
+    }
 
     if (!res.ok) {
       return {
@@ -40,7 +48,7 @@ export async function loginAdmin(username, password) {
     console.error("Login request error:", err);
     return {
       success: false,
-      error: "Unable to connect to authentication server. Please ensure the backend is running."
+      error: "Unable to connect to authentication server. Please ensure both frontend (http://localhost:5174) and backend (http://localhost:5000) are running."
     };
   }
 }
